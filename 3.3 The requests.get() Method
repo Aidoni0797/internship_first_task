@@ -128,3 +128,18 @@ url = 'http://httpbin.org/user-agent'
 for x in range(10):
   ua = UserAgent()
   fake_ua = {'user-agent': ua.random}
+  response = requests.get(url=url, headers=fake_ua)
+  print(response.text)
+
+>>>{"user-agent": "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0;
+chromeframe/13.0.782.215)"}
+...
+
+Давайте разберкем этот код.
+1. Цикл на 10 итераций;
+2. ua = UserAgent() создает экземпляр класса UserAgent;
+3. fake_ua = {'user-agent': ua.random} создаем переменную, в которой будет корректный user-agent, используя метод
+.random(обращаю ваше внимание на то, что это метод библиотеки UserAgent, не путайте с библиотекой random).
+Этот метод гарантирует, что user-agent будет уникален при каждом запросе:
+4. Создаем экземпляр класса Requests с методом .get() и передаем в атрибут ссылку и headers с переменной, в которй хранится
+корректный 
