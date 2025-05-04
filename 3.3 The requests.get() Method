@@ -122,3 +122,9 @@ ua = fake_useragent.UserAgent() or ua = UserAgent() во втором приме
 
 from fake_useragent import UserAgent
 import requests
+
+url = 'http://httpbin.org/user-agent'
+
+for x in range(10):
+  ua = UserAgent()
+  fake_ua = {'user-agent': ua.random}
