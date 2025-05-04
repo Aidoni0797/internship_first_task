@@ -299,4 +299,5 @@ except Exception as _ex:
 (Caused by ConnectionTimeputError(<urllib3.connection.HTTPConnection object at 0x000001EBEE70DC00>,
 'Connection to 200.12.55.90 timed out (connect timeout=1)'))
 
-Во втором примере метод.get()
+Во втором примере метод.get() ожидает ответ от сервера ровно 1 секунду, затем печатает исключение с таумаутом, а затем
+и время выполнения скрипта, где мы видим, что на все потребовалось 1.0162000999844167 сек.
