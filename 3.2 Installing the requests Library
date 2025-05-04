@@ -1,0 +1,15 @@
+3.2 Installing the requests Library
+
+Requests - https://requests.readthedocs.io/en/latest/ - является внешним модулем, поэтому сначала вам нужно будет установить его
+
+В windows для этого используется следующая команда.
+
+pip3 install requests
+
+Сразу после установки requests можно полноценно использовать
+
+Импорт requests производится следующим образом.
+
+import requests
+
+Установка и импорт библиотеки завершены, можно приступать к изучению.
