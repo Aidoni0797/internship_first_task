@@ -322,4 +322,29 @@ https://httpbin.org/get?key1=value1&key2=value2
 
 Загружаем видео при помощи requests
 
-Когда возникает потребность скачать видео с сайта, мы прибегаем
+Когда возникает потребность скачать видео с сайта, мы прибегаем к помощи библиотеки requests, она делает эту задачу максимально
+простой.
+
+У метода .get() есть подходящий параметр этих целей stream=True
+
+stream=True - позволяет удерживать соединение пока мы не получили весь требуемый контент. Этот параметр используется
+при скачивании тяжеловесных файлов.
+
+Мы можем использовать response.content для загрузки если файл относительно не большой.
+
+import requests
+response = requests.get(url=url, stream=True)
+with open('file.mp4', 'wb') as file:
+  file.write(response.content)
+
+Если файл очень большой, или вы не хотите ждать пока файл скачает полностью, то рекомендуется использовать .iter_content(),
+это метод, который позволяет совершать итерацию по response.content.
+
+Для .iter_contetn() мы должны определить размер скачиваемой части файла.
+Параметром chunk_size=1000000 где цифра, это размер в байтах.
+
+import requests
+response = requests.get(url=url, stream=True)
+with open('file.mp4', 'wb') as video:
+  for piece in response.iter_content(chunk_size=100000):
+    video.write(piece)
