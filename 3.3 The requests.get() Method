@@ -78,4 +78,18 @@ Chrome/99.0.4844.84 safari/537.36"}
 
 В ответе на ваш запрос мы увидим переданный нами user-agent. Поэкспериментируйте самостоятельно, измените содержания словаря headers и посмотрите, что изменится.
 
-Загрузите файт с user-agent и поместите его в корневой каталог с вашим проектом. Скачять файл - 
+Загрузите файт с user-agent и поместите его в корневой каталог с вашим проектом. Скачять файл - https://drive.google.com/file/d/1mIG_570jp_NSlPgeyCF2xOOZLjP2V82w/view
+
+import requests
+from ramdom import choice
+
+url = 'http://httpbin.org/user-agent'
+
+while line := open ('user-agent.txt').read().split('\n'):
+  user_agent = {'user-agent': choice(line)}
+  response = requests.get(url=url, header=user_agent)
+  print(response.text)
+
+>>>{"user-agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko)
+Chrome/50.0.2661.94 Safari/537.36"}
+.....
