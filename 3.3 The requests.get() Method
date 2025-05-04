@@ -303,3 +303,18 @@ except Exception as _ex:
 и время выполнения скрипта, где мы видим, что на все потребовалось 1.0162000999844167 сек.
 
 Передача параметров в URL params =
+
+Часто вам может понадобиться отправить какие-то данные в строке запроса URL. Если вы настраиваете URL вручную, 
+эти данные будут представлены в нем в виде пар ключ/значение после знака вопроса. Например, httpbin.org/get?key=val. 
+Requests позволяет передать эти аргументы в качестве словаря, используя аргумент params =. Если вы хотите передать 
+key1=value1 and key2=value2 ресурсу httpbin.org/get, вы должны использовать следующий код:
+
+param={'key1':'value1', 'key2': 'value2'}
+r=requests.get('https://httpbin.org/get', params=param)
+print(r.url)
+
+>>>https://httpbin.org/get?key1=value1&key2=value2
+
+Как видно, URL был сформирован правильно:
+
+https://httpbin.org/get?key1=value1&key2=value2
