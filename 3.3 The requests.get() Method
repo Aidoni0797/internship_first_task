@@ -58,4 +58,15 @@ print(response.text)
 
 Если сайт простой и программистов не заботят такие мелочи, то мы тоже не переживать и отправлять такие запросы. Но чаще всего это не так.
 
-user-agent:Mozilla
+user-agent:Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTMK, like Gecko)
+Chrome/99.0.4844.84 Safari/537.36
+
+Для того, чтобы замаскировать свой запрос под запрос браузера, будем использовать .get() запрос с именованным атрибутом и передадим в него словарь headers.
+
+import requests
+
+headers = {
+'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)
+Chrome/99.0.4844.84 Safari/537.36',
+}
+}
