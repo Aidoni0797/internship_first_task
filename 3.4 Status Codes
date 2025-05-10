@@ -30,4 +30,17 @@ print(response.status_code)
 
 Попробуйте заменить URL на несуществующий, чтобы увидеть ошибку ответа 404.
 
-Так же мы можем совершить
+Так же мы можем совершить проверку статус кода. И отталкиваясь от этого строить свой код.
+
+import requests
+
+url = 'http://httpbin.org/'
+response = requests.get(url)
+if response.status_code == 200:
+  print('status_code OK')
+else:
+  print('status_code NOT OK')
+
+>>> status_code OK
+
+Это может пригодиться, когда сервер позволяет совершать
