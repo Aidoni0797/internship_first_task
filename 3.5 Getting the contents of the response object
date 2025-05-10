@@ -4,4 +4,32 @@
 
 json()
 
-Если вы уже знакомы с JSON 
+Если вы уже знакомы с JSON, вам будет легче понять следующий пример. Если JSON вам не знаком, не переживайте: в следующих блоках мы остановимся на нем подробнее.
+
+А пока сделаем простой запрос к сервису, который помогает сгенерировать фейковый JSON https://jsonplaceholder.typicode.com/todos/ - возвращает нам JSON-словарь.
+
+import requests
+response = requests.get(url='https://jsonplaceholder.typicode.com/todos/')
+print(response.json())
+
+>>>[{'userId': 1, 'id': 1, 'title': 'deletus aut autem', 'completed': False},]
+....
+
+import requests
+
+response = requests.get(url='https://jsonplaceholder.typicode.com/todos/')
+print(response.text)
+
+>>>[
+{
+  "userId":1,
+  "id": 1,
+  "title": "delectus aut autem",
+  "completed": false
+},.....
+]
+
+Если вы скопируете и выполните эти два примера у себя в терминале, вы обнаружите, что .text и .json() вернут одну и ту же информацию.
+
+Но на самом деле это не так. Если мы посмотрим на type() ответа каждого из запросов, мы обнаружим, что в случае с .json() мы получаем тип <class 'list'>,
+а в случае с .text мы получаем тип <class 'str'>
