@@ -1,0 +1,25 @@
+3.3 The requests.get() method - task_1
+
+Задача:
+1. Перейдите на сайт https://parsinger.ru/video_downloads/
+2. Скачайте видео с сайта при помощи requests
+3. Определите его размер в ручную
+4. Напишите размер файла в поле для ответа. Написать нужно только цифру в мегабайтах.
+
+Решение iDONi с помощью ChatGPT
+import requests
+import os
+
+url = 'https://parsinger.ru/video_downloads/videoplayback.mp4'
+
+response = requests.get(url, stream=True)
+filename = 'video.mp4'
+
+with open(filename, 'wb') as video:
+  for piece in response.iter_content(chunk_size = 100_00):
+    if piece:
+      vieo.write(piece)
+
+size_bytes = os.path.getsize(filename)
+size_mb = size_bytes / (1024*1024)
+print(f'Размер файла: {size_mb:.2f} MB')
