@@ -1,0 +1,7 @@
+3.5 Getting the contents of the response object
+
+Содержимое ответа response .json() .text .content
+
+json()
+
+Если вы уже знакомы с JSON 
