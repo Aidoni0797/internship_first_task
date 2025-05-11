@@ -93,4 +93,37 @@ import requests
 
 url = 'http://parsinger.ru/html/headphones/5/5_32.html'
 response = requests.get(url=url)
-response.encoding = ''
+response.encoding = 'utf-8'
+soup = BeautifulSoup(response.text, 'lxml')
+div = soup.find('p', class_='article').text
+pritn(div)
+
+>>>Артикул: 80387567
+
+Стоит обратить внимание на нижнее подчеркивание после слова class_. Это не опечатка, так сделано специально, чтобы не возникало конфликтов с остальным кодом на
+python. class - служебное слово, которым объявляются классы, и так называть переменные или атрибуты в python нельзя. Стоит просто запомнить данный синтаксис.
+
+Также обратите внимание на метол .text, мы его применили во время вызова метода .find(), это хорошая практика. Но новички часто пытаются применить метод .text
+к списку, который возвращается при вызове метода .find_all()
+
+Поиск по id
+
+На этой же странице нашего тренажера есть тег <p> with id='p_header'. Давайте посмотрим как извлекать текст по id.
+
+from bs4 impot BeautifulSoup
+import requests
+
+url = 'http://parsinger.ru/html/headphones/5/5_32.html'
+response = requests.get(url=url)
+response.encoding='utf-8'
+soup=BeautifulSoup(response.text,'lxml')
+div=soup.find('p',id='p_header').text
+print(div)
+
+>>>Наушники HP Pavilion Gaming 600
+
+На самом деле, тут все выглядит точно так же, как и при работе с class_='', только нам нужно указать, что мы ищем id.
+
+Поиск по атрибутам
+
+У нас есть тег span, у которого есть атрибут name='count'. Давайте
