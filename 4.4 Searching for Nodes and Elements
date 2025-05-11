@@ -17,3 +17,9 @@ BeautifulSoup создает объект из HTML-дерева, по кото�
 
 Унас есть сайт (https://parsinger.ru/html/index1_page_1.html), и мы хотим получить элемент, который имеет class= 'item'
 
+from bs4 import BeautifulSoup
+import requests
+
+url = 'https://parsinger.ru/html/index1_page_1.html'
+response = requests.get(url=url)
+respoinse.encoding = 'utf-8'
