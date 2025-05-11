@@ -93,3 +93,13 @@ pagen=[f"{shema}{link['href']}" for link in soup.find('div', class_='pagen').fin
 print(pagen)
 
 >>> ['http://parsinger.ru/html/index1_page_1.html','http://parsinger.ru/html/index1_page_2.html','http://parsinger.ru/html/index1_page_3.html','http://parsinger.ru/html/index1_page_4.html']
+
+
+Пагинация часть - 2
+
+Часто бывает, что мы не можем получить все ссылки из пагинации и нам приходится генерировать их самостоятельно. Звучит странно, но вы сейчас поймете, о чем я.
+Для примера посмотрим на ссылку маркета www.wildberries.ru
+
+wildberries.ru/catalog/elektronika/smart-chasy?sort=popular&page=8
+
+Самые догадливые, надеюсь, уже поняли
