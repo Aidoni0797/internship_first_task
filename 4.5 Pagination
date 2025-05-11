@@ -14,3 +14,15 @@
 
 Мы видим, что здесь она представляет собой блок <div class='pagen'>, в котором 4 тега  <a>. Мы уже умеем пользоваться методами .find() and .find_all(), давайте применим их 
 и соберем ссылки из пагинации, также нам понадобится значение последнего элемента.
+
+from bs4 import BeautifulSoup
+impot requests
+
+url = 'http://parsinger.ru/html/index1_page_3.html'
+response = requests.get(url=url)
+response.encoding='utf-8'
+soup=BeautifulSoup(response.text, 'lxml')
+pagen = soup.find('div', class_='pagen').find_all('a')
+print(pagen)
+
+>>>[<a href='index1_page_1.html'>1</a>, <a href='index1_page_2.html'>2<
