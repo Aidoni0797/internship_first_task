@@ -23,3 +23,21 @@ import requests
 url = 'https://parsinger.ru/html/index1_page_1.html'
 response = requests.get(url=url)
 respoinse.encoding = 'utf-8'
+soup = BeautifulSoup(response.text, 'lxml')
+div = soup.find('div', 'item')
+print(div)
+
+Здесь все очень просто: мы даем указание найти конкретный div, который имеет конкретный class = 'item' Все:) В ответ получим <class 'bs4.element.Tag'>,
+элемент класса bs4, с которым мы можем работать дальше.
+
+.find_all()
+
+Давайте посмотрим на содержимое тега, который мы получили. Видим, что мы имеем в своем распоряжении все те же элементы HTML. Давайте попробуем получить все теги <li>.
+Для этого нам понадобится метод .find_all().
+
+from bs4 import BeautifulSoup
+import requests
+
+url = 'http://parsinger.ru/html/index1_page_1.html'
+response = requests.get(url=url)
+response.encoding = utf-8'
