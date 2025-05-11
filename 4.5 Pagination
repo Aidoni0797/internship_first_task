@@ -85,4 +85,11 @@ import requests
 
 url = 'http://parsinger.ru/html/index1_page_3.html'
 response = requests.get(url=url)
-response.encoding=
+response.encoding='utf-8'
+soup=BeautifulSOup(response.text, 'lxml')
+shema='http://parsinger.ru/html'
+pagen=[f"{shema}{link['href']}" for link in soup.find('div', class_='pagen').find_all('a')]
+
+print(pagen)
+
+>>> ['http://parsinger.ru/html/index1_page_1.html','http://parsinger.ru/html/index1_page_2.html','http://parsinger.ru/html/index1_page_3.html','http://parsinger.ru/html/index1_page_4.html']
