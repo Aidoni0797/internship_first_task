@@ -84,4 +84,5 @@ from bs4 import BeautifulSoup
 import requests
 
 url = 'http://parsinger.ru/html/index1_page_3.html'
-response
+response = requests.get(url=url)
+response.encoding=
