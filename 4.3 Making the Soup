@@ -36,6 +36,21 @@ with open('index.html', 'r', encoding='utf-8') as file:
 
 from bs4 import BeautifulSoup
 import requests
-import ;xm;
+import lxml
+import sys
 
-#Пример3. Передача объекта response прямо
+# Для Python ≥ 3.7
+sys.stdout.reconfigure(encoding='utf-8')
+#Пример3. Передача объекта response прямо из запроса
+response = requests.get(url='http://parsinger.ru/html/watch/1/1_1.html')
+soup = BeautifulSoup(response.text, 'lxml')
+
+print(soup)
+
+
+Это пример используется чаще всего. В этом примере мы совершили .get запрос, затем передали результат запроса в конструктор BeautifulSoup. Обратите внимание на метод
+.text, который мы применили к объекту response. Конструктор BeautifulSoup умеет работать только с HTML, именно поэтому мы преобразуем объект response в текст.
+Если этого не сделать, мы получим ошибку TypeError: object of type 'Response' has no len(), об этом важно знать.
+
+Если у вас во время запроса к данной странице возникли проблемы с кодировкой и вы видите нечто подоное <title>ГђВџГђВ°Г‘ВЂГ‘ВЃГђВёГђВЅГђВі ГђВЅГђВ°(Непонятные символы)</title>
+необходимо применить метод response.encoding='utf-8'. К сожелению, такое поведение иногда встречается, и я пока не знаю как решить эту пролблему на этом тренажере.
