@@ -79,3 +79,18 @@ for txt in div:
   result.append(txt)
 
 Такой подход возможен  потому что .find_all('li') вернул нам список состоящий из элементов li
+
+
+Поиск по class, id, поиск по атрибутам
+
+Поиск по class
+
+Поиск по class аналогичен поиску по id, за исключением небольших различий в синтаксисе.
+Будем использовать наш тренажер - https://parsinger.ru/html/headphones/5/5_32.html. Мы с вами хотим получить значение тега <p> с классом 'article'
+
+from bs4 import BeautifulSoup
+import requests
+
+url = 'http://parsinger.ru/html/headphones/5/5_32.html'
+response = requests.get(url=url)
+response.encoding = ''
