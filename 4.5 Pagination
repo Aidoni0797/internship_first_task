@@ -70,4 +70,18 @@ pagen=soup.find('div', class_='pagen').find_all('a')
 list_link = []
 shema='http://parsinger.ru/html'
 for link in pagen:
-  list_link.append(f"{shema}{link['href']}"
+  list_link.append(f"{shema}{link['href']}")
+
+print(list_link)
+
+>>>['http://parsinger.ru/html/index1_page_1.html','http://parsinger.ru/html/index1_page_2.html', 'http://parsinger.ru/html/index1_page_3.html', 'http://parsinger.ru/html/index1_page_4.html']
+
+Отлично, всё получилось.
+
+То же самое, но с применением list comprehension:
+
+from bs4 import BeautifulSoup
+import requests
+
+url = 'http://parsinger.ru/html/index1_page_3.html'
+response
