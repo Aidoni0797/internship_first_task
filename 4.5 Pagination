@@ -25,4 +25,49 @@ soup=BeautifulSoup(response.text, 'lxml')
 pagen = soup.find('div', class_='pagen').find_all('a')
 print(pagen)
 
->>>[<a href='index1_page_1.html'>1</a>, <a href='index1_page_2.html'>2<
+>>>[<a href='index1_page_1.html'>1</a>, <a href='index1_page_2.html'>2</a>, <a href='index1_page_3.html'>3</a>, <a href='index1_page_4.html'>4</a>]
+
+Мы получили список тегов, но нам ведь нужно извлечь ссылку и текст. Применим list comprehension, чтобы сделать это удобнее.
+
+pagen = [link['href'] for link in soup.find('div', class_='pagen'0\).find_all('a')]
+
+>>> ['index1_page_1.html', 'index1_page_2.html', 'index1_page_3.html', 'index1_page_4.html']
+
+Если вы не понимаете как работает list comprehension: пример ниже сделает то же самое, но в обычном цикле, результат будет идентичный. А вообще советую почитать
+про него дополнительно, для программиста на python это очень нужный и полезный инструмент.
+
+list_link = []
+for link in pagen:
+  list_link.append(link['href'])
+
+print(list_link)
+
+>>> ['index1_page_1.html, 'index1_page_2.html', 'index1_page_3.html', 'index1+page_4.html']
+
+Обратите внимание на то, как мы получаем значение атрибута href='', подобным образом мы можем извлекать ссылку из тегов <a>. Такой подход применим и к тегу <img>,
+мы сможем извлечь src='', где хранится ссылка на изображение. Картинки мы будем парсить в следующих уроках.
+
+Итак, что мы имеем? А имеем мы список, в котором хранятся 4 имени файла, и нужно превратить их в ссылки. Вероятно, вы уже догадались как это сделать. Если вы 
+предположили, что это будет f'' - строка, то вы совершенно правы.
+
+Давайте проанализируем, как формируется ссылка на пагинацию, и сформируем схему, которая поможет генерировать корректные ссылки.
+
+За схемой далеко ходить не нужно, а адресной строке мы можем ее увидеть.
+
+stepik-parsing.ru/html/index1_page_3.html
+
+Создадим переменную shema и сохраним в нее первую часть ссылки. И в цикле на каждой итерации мы будем склеивать обе части, чтобы получить корерктную ссылку.
+
+from bs4 import BeautifulSoup
+import requests
+
+url = 'http://parsinger.ru/html/index1_page_3.html'
+response = requests.get(url=url)
+response.encoding='utf-8'
+soup = BeautifulSoup(response.text, 'lxml')
+pagen=soup.find('div', class_='pagen').find_all('a')
+
+list_link = []
+shema='http://parsinger.ru/html'
+for link in pagen:
+  list_link.append(f"{shema}{link['href']}"
