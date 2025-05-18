@@ -138,3 +138,38 @@ total = sum(float(cell.text) for cell in green_cells)
 print(total)
 
 (Бог знает правильно или нет Но ответ 0, и почему же)
+
+
+----------------------------
+Задание 5
+
+1. На сайте https://parsinger.ru/table/5/index.html расположена таблица;
+2. Цель: Умножить число в оранжевой ячейка на число в голубой ячейке в той же строке и всё суммировать;
+3. Полученный результат встаивть в поле ответа.
+
+Решение
+
+import requests
+from bs4 import BeautifulSoup
+
+url = "https://parsinger.ru/table/5/index.html"
+response = requests.get(url)
+soup = BeautifulSoup(response.text, "html.parser")
+
+total = 0
+
+rows = soup.find_all('tr')[1:]  # Пропускаем заголовок
+
+for row in rows:
+    orange_value = None
+    blue_value = None
+    for td in row.find_all('td'):
+        style = td.get('style')
+        if style == 'background-color: orange;':
+            orange_value = float(td.text)
+        elif style == 'background-color: #87CEFA;':
+            blue_value = float(td.text)
+    if orange_value is not None and blue_value is not None:
+        total += orange_value * blue_value
+
+print(total)
