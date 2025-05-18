@@ -21,7 +21,7 @@ import csv
 lst = ['one', 'two', 'three']
 
 with open('res.csv', 'w', newline='', encoding='utf-8-sig') as file:
-  writer = csv.write(file, delimiter=';')
+  writer = csv.writer(file, delimiter=';')
   writer.writerow(lst)
 
 Чтобы в Excel корректно открывалась кодировка, используйте encoding='utf-8-sig'.
@@ -37,3 +37,29 @@ witer = csv.writer(file, delimiter=';') - в этой строке мы созд
 метод writer(). У writer() есть метод writeow(), с помощью кторого можно записывать список в соответствующий
 формат построчно. delimiter=';' указывает, каким будет разделить между элементами списка, мы можем
 указатьт любой.
+
+CSV часть 2
+
+В этом уроке я хочу наглядно показать, как собрать информацию с тренажера (https://parsinger.ru/html/mouse/3/3_11.html)
+и сохранить результат в формате .csv
+
+import csv
+import requests
+
+from bs4 import BeautifulSoup
+
+#1---------------------------------------------
+with open('res.csv', 'w', encoding='utf-8-sig', newline='') as file:
+  writer = csv.writer(file, delimiter=';')
+  writer.writerow([
+    'Наименование', 'Артикул', 'Бренд', 'Модель',
+    'Тип','Игровая','Размер','Подсветка','Разрешение',
+    'Сайт производителя','В наличии','Цена'
+  ])
+#1---------------------------------------------
+
+#2---------------------------------------------
+url = 'http://parsinger.ru/html/mouse/3/3_11.html'
+
+response = requests.get(url=url)
+response.encoding = 'utf-8'
