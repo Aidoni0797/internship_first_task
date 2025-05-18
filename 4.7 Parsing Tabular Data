@@ -90,3 +90,26 @@ rows = soup.find_all('tr')[1:]  # пропускаем первую строку
 total = sum(float(row.find_all('td')[0].text) for row in rows)
 
 print(total)
+
+---------------------------------
+Задание 3
+
+1. На сайте https://parsinger.ru/table/3/index.html расположена таблица;
+2. Цель: Собрать числа которые выделены жирным шрифтом и суммировать их;
+3. Полученный результат вставить в поле ответа.
+
+Решение
+
+import requests
+from bs4 import BeautifulSoup
+
+url = "https://parsinger.ru/table/3/index.html"
+response = requests.get(url)
+soup = BeautifulSoup(response.text, "html.parser")
+
+# Находим все элементы <b> и суммируем содержащиеся в них числа
+bold_numbers = [float(b.text) for b in soup.find_all('b')]
+total = sum(bold_numbers)
+
+print(total)
+
