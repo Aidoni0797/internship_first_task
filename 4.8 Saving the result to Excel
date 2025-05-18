@@ -165,4 +165,12 @@ with open('res.csv', 'w', encoding='utf-8-sig', newline='') as file:
 url = 'http://parsinger.ru/html/index3_page_2.html'
 
 response = requests.get(url=url)
-response.encoding=''
+response.encoding='utf-8'
+soup = BeautifulSoup(response.text, 'lxml')
+#2-----------------------------------------------
+
+#3-----------------------------------------------
+name = [x.text.strip() for x in soup.find_all('a', class_='name_item')]
+description = [x.text.split('\n') for x in soup.find_all('div', class_='description')]
+price = [x.text for x in soup.find_all('p', class_='price')]
+#3-----------------------------------------------
