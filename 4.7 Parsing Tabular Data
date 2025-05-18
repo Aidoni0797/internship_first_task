@@ -113,3 +113,28 @@ total = sum(bold_numbers)
 
 print(total)
 
+--------------------------
+Задание 4
+
+1. На сайте https://parsinger.ru/table/4/index.html расположена таблица;
+2. Цель: Собрать числа в зелёных ячейках и суммировать их;
+3. Полученный результат вставить в поле ответа
+
+Решение
+
+import requests
+from bs4 import BeautifulSoup
+
+url = "https://parsinger.ru/table/4/index.html"
+response = requests.get(url)
+soup = BeautifulSoup(response.text, "html.parser")
+
+# Находим все ячейки с зелёным цветом текста
+green_cells = soup.find_all('td', style="color: green;")
+
+# Извлекаем числа и суммируем
+total = sum(float(cell.text) for cell in green_cells)
+
+print(total)
+
+(Бог знает правильно или нет Но ответ 0, и почему же)
