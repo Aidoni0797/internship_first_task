@@ -292,3 +292,11 @@ with open('all_products.csv', 'w', encoding='utf-8-sig', newline='') as file:
     writer.writerows(all_data)
 
 print("all_products.csv")
+
+# Задание 3
+
+Напишите код, который собирает данные в категории watch (https://parsinger.ru/html/index1_page_1.html)
+с каждой карточки, всего их 32.
+
+Обязательные заголовки: Наименование, Артикул, Бренд, Модель, Тип, Технология экрана, Материал корпуса,
+Материал браслета, Размер, Сайт 
