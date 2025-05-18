@@ -68,7 +68,7 @@ soup = BeautifulSoup(response.text, 'lxml')
 
 #3---------------------------------------------
 name = soup.find('p', id='p_header').text
-article = soup.find('p', class_='article').text.split[': '][1]
+article = soup.find('p', class_='article').text.split(': ')[1]
 brand = soup.find('li', id='brand').text.split(': ')[1]
 model = soup.find('li', id='model').text.split(': ')[1]
 type = soup.find('li', id='type').text.split(': ')[1]
