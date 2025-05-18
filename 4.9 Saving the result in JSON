@@ -175,3 +175,17 @@ for li in description:
 будет хранить список всех дочерних элементов <li>, давайте на них посмотрим.
 
 Далее мы проходимся по каждому элементу в этом списке и обращаемся с ним как с элементами
+словаря - li['id']. Мы можем добавлять элементы в список на каждой итерации, а можем использовать 
+list comprehension li_id = [x['id'] for x in description] и получить готовый список без лишнего кода.
+
+import requests
+from bs4 import BeautifulSoup
+
+response = requests.get('http://parsinger.ru/html/watch/1/1_1.html')
+response.encoding = 'utf-8'
+soup = BeautifulSoup(response.text, 'lxml')
+description = soup.find('ul', id = 'description').find_all('li')
+li_id = [x['id'] for x in description]
+print(li_id)
+
+>>> ['brand','model','type','display','material_frame','material_bracer','size','site']
