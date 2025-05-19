@@ -434,3 +434,40 @@ with open('all_categories_products.json', 'w', encoding='utf-8') as f:
 
 print(f'Собрано товаров: {len(all_products)}')
 
+Парсим JSON часть 2
+
+Для следующего примера нам понадобится jsonplaceholder - https://jsonplaceholder.typicode.com/posts, тот сервис предоставляет JSON для разработчиков.
+У него есть 6 ресурсов - /posts, /comments,/albums,/photos,/todos,/users
+
+Давайте сделаем запрос на /posts и посмотрим на данные через jsonviewer - https://jsonviewer.stack.hu/. Мы увидим 100 постов, где мы можем извлечь
+четыре поля: "usreId", "id", "title", "body". Если мы хотим получить какой-либо определенный элемнт, мы должны указать его квадратных скобках -
+["title"]
+
+Для того, чтобы получиьт все 'userId' and 'title',  мы пройдемся по всем элементам в цикле for:
+
+import requests
+
+url = 'https://jsonplaceholder.typicode.com/posts'
+
+response = requests.get(url=url).json()
+for item in reponse:
+  print(item["userId"], item["title"])
+
+В результате мы получили все "userId" and "title". Обратите внимание на применяемый к reponse метод .json(), мы говорили об этом в разделе,
+посвященном requests. Этот метод помогает сериализовать данные с сервера в JSON-объект, при условии, что сервер готов нам их отдать.
+
+Вложенность JSON
+
+Для следующего примера нам понадобится результат выполнения одной из прошлых задач. Для удобства вы можете найти его по ссылке - https://parsinger.ru/downloads/get_json/res.json
+
+Наша цель - извлечь из значения ключа "description" вложенные ключи "brand" and "model". Для этого первым ключом указывается родительский элемент,
+а после дочерний ["description"]["brand"].
+
+import requests
+
+url ='http://parsinger.ru/downloads/get_json/res.json'
+
+response = requests.get(url=url).json()
+
+for item in response:
+  print(item['description']['brand'], item['description']['model'])
