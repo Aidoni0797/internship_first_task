@@ -238,3 +238,130 @@ for page in range(1, 5):
 # Сохраняем результат в JSON файл
 with open('products.json', 'w', encoding='utf-8') as f:
     json.dump(all_products, f, indent=4, ensure_ascii=False)
+
+#2---------------------------------------------------------------------
+Соберите данные со всех 5 категорий на сайте тренажере https://parsinger.ru/html/index1_page_1.html
+и соберите все данные с карточек.
+
+По результату выполнения кода в папке с проектом должен появиться файл .json с отступом в 4 пробела.
+
+Решение:
+import requests
+from bs4 import BeautifulSoup
+import json
+import time
+
+HEADERS = {
+    "User-Agent": "Mozilla/5.0"
+}
+
+BASE_CATEGORY_URL = "https://parsinger.ru/html/index{}_page_{}.html"
+MAX_PAGES_PER_CATEGORY = 4  # Известно, что максимум 4 страницы на категорию
+CATEGORY_COUNT = 5  # index1 to index5
+
+all_products = []
+
+for category_index in range(1, CATEGORY_COUNT + 1):
+    for page in range(1, MAX_PAGES_PER_CATEGORY + 1):
+        url = BASE_CATEGORY_URL.format(category_index, page)
+        response = requests.get(url, headers=HEADERS)
+
+        # Если ответ не 200 (например, страница не существует) — пропускаем
+        if response.status_code != 200:
+            continue
+
+        soup = BeautifulSoup(response.text, 'html.parser')
+        cards = soup.find_all('div', class_='item')
+
+        for card in cards:
+            name = card.find('a', class_='name_item').text.strip()
+            description = [li.text.strip() for li in card.find_all('li')]
+            price = card.find('p', class_='price').text.strip()
+            stock_tag = card.find('span', id=lambda x: x and x.startswith('in_stock'))
+            stock = stock_tag.text.strip() if stock_tag else "Нет данных"
+
+            product_data = {
+                'name': name,
+                'description': description,
+                'price': price,
+                'stock': stock,
+                'category': f'Категория {category_index}',
+                'url': url
+            }
+            all_products.append(product_data)
+
+        time.sleep(0.3)  # чтобы не перегружать сервер
+
+# Сохраняем всё в JSON
+with open('all_products.json', 'w', encoding='utf-8') as file:
+    json.dump(all_products, file, indent=4, ensure_ascii=False)
+
+print(f'Собрано товаров: {len(all_products)}')
+
+#3-------------------------------------------
+
+Выберите 1 любую категорию нна сайте тренажера https://parsinger.ru/html/index3_page_1.html, и соберите
+все данные с карточек товаров + ссылка на карточку.
+
+По резуьлтату выполнения кода в папке с поектом должен появится файл .json с отступом в 4 пробела. 
+Ключи в блоке description должны быть получены автоматически из атрибутов HTML элемнетов.
+
+Решение
+
+import requests
+from bs4 import BeautifulSoup
+import json
+import time
+import sys
+sys.stdout.reconfigure(encoding='utf-8')
+BASE_URL = 'https://parsinger.ru/html/'
+START_URL = 'https://parsinger.ru/html/index3_page_1.html'
+HEADERS = {'User-Agent': 'Mozilla/5.0'}
+
+all_products = []
+
+# Получаем ссылки на все страницы категории
+response = requests.get(START_URL, headers=HEADERS)
+soup = BeautifulSoup(response.text, 'html.parser')
+pages = [BASE_URL + a['href'] for a in soup.select('.pagen a')]
+
+# Проходим по всем страницам
+for page_url in pages:
+    page_resp = requests.get(page_url, headers=HEADERS)
+    page_soup = BeautifulSoup(page_resp.text, 'html.parser')
+
+    # Получаем ссылки на карточки товаров
+    card_links = [BASE_URL + a['href'] for a in page_soup.select('.name_item')]
+
+    # Переходим на каждую карточку
+    for card_url in card_links:
+        card_resp = requests.get(card_url, headers=HEADERS)
+        card_soup = BeautifulSoup(card_resp.text, 'html.parser')
+
+        name = card_soup.find('p', id='p_header').text.strip()
+        price = card_soup.find('span', id='price').text.strip()
+        stock = card_soup.find('span', id='in_stock').text.strip()
+
+        # Автоматически собираем характеристики
+        description = {}
+        for li in card_soup.select('ul.description li'):
+            if ':' in li.text:
+                key, value = li.text.split(':', 1)
+                description[key.strip()] = value.strip()
+
+        product_data = {
+            'name': name,
+            'price': price,
+            'stock': stock,
+            'description': description,
+            'url': card_url
+        }
+        all_products.append(product_data)
+
+        time.sleep(0.2)  # чтобы не спамить сервер
+
+# Сохраняем результат
+with open('category3_products.json', 'w', encoding='utf-8') as f:
+    json.dump(all_products, f, indent=4, ensure_ascii=False)
+
+print(f'Собрано товаров: {len(all_products)}')
