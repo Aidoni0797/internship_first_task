@@ -14,3 +14,14 @@
 в page = 2. Вот ссылка https://www.wildberries.ru/catalog/elektronika/planshety?sort=popular&page=2, на момент создания этого степа там девять страниц.
 
 Парсим JSON часть 2
+
+Для следующего примера нам понадобиться jsonplaceholder - https://jsonplaceholder.typicode.com/posts,
+тот сервис предоставляет JSON для разработчиков. У него есть 6 ресурсов -
+/posts - https://jsonplaceholder.typicode.com/posts
+/comments - 
+/albums - 
+/photos -
+/todos -
+/users - 
+
+Давайте сделаем запрос на /posts и посмотрим на данные через jsonviewer. 
