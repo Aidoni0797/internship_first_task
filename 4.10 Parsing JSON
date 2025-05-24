@@ -28,4 +28,16 @@
 можем извлечь четыре поля: "userId", "id", "title", "body". Если мы хотим получить какой-либо
 определенный элемент, мы должны указать его в квадратных скобках - ["title"].
 
-Для того, чтобы получить все 'userId' and 'title', мы пройдемся по всем элементам в 
+Для того, чтобы получить все 'userId' and 'title', мы пройдемся по всем элементам в цикле for:
+
+import requests
+
+url = 'https://jsonplaceholder.typicode.com/posts'
+
+response = requests.get(url=url).json()
+for item in response:
+  print(utem["userId"], item["title"])
+
+>>>1 sunt aut facere repellat provident occaecati excepturi optio reprehenderit
+    1 qui est esse
+  
