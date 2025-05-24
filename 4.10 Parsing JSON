@@ -49,3 +49,16 @@ for item in response:
 сервера в JSON-объект, при условии, что сервер готов нам их отдать.
 
 Вложенность JSON
+Для следующего примера нам понадобится результат выполнения одной из прошлых задач. Для удобства вы
+можете найти его по ссылке - https://parsinger.ru/downloads/get_json/res.json.
+
+Наша цель - извлечь из значения ключа "description" вложенные ключи "brand" and "model". Для этого
+первым ключом указывается родительский элемент, а после дочерний ["description"]["brand"]
+
+import requests
+
+url = "http://parsinger.ru/downloads/get_json/res.json"
+
+response = requests.get(url=url).json()
+for item in response
+  print(item["description"]["brand"], item["description"]["model"])
