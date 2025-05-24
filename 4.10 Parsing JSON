@@ -62,3 +62,10 @@ url = "http://parsinger.ru/downloads/get_json/res.json"
 response = requests.get(url=url).json()
 for item in response
   print(item["description"]["brand"], item["description"]["model"])
+
+>>> Jet Excidium
+    Huawei Band 6 FRA-B19
+    Huawei Band 6 FRA-B191
+    Huawei GT 3 MIL-B19V
+    ...
+    HP Pavilion Gaming 600
