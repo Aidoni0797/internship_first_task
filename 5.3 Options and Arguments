@@ -20,3 +20,36 @@
 Они находятся в скрытой папке по этому адресу: C:/Users/user/AppData/Local/Google/Chrome/User/Data/Default/Extensions
 
 Или в адресной строке браузера напишите chrome://version/ и отыщите путь к расширению там.
+
+Обратите внимание что создаётся 2 файла:
+
+- 1.4.1_0.crx - упакованное расширение;
+- 1.4.1_0.pem - файл ключей, который необходимо будет удалить если потребуется повторная упаковка расширения
+(имя будет соответствовать названия расширения).
+
+Путь к расширению может выглядеть подобным образом, где Default это имя вашего профиля =>
+C:/Users/user/AppData/Local/Google/User Data/Default/Extesions/ghdmnjooekpmoennnilnnbdlolhkhi/
+
+В папке появится файл 1.4.1_0.crx, это и есть наше упакованное расширение, теперь оно готово к
+использованию. Осталось скромить его в Selenium.
+
+В методе .add_extension('coordinates.crx') мы указываем путь к нашему упакованному расширению. Если
+расширение лежит в папке с проектом, достаточно указать его имя.
+
+Так же необходимо не забудьте передать опции в webdriver, делается это так webdriver.Chrome(options=)
+
+В этом примере я переименовал файл 1.4.1_0.crx=>coordinates.crx
+
+import time
+from selenium import webdriver
+
+options_chrome = webdriver.ChromeOptions()
+options_chrome.add_extension('coordinates.crx')
+
+with webdriver.Chrome(options=options_chrome) as browser:
+  url = 'https://yandex.ru'
+  browser.get(url)
+  time.sleep(50)
+
+Если все сделано правильно, при запуске браузера в нем будет установлено расширение. Установите дсотаточную задержку,
+чтобы запустить этот код у себя и убедиться в этом самостоятельно.
