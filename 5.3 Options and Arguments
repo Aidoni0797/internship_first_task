@@ -191,4 +191,5 @@ chrome_options.add_argument('--proxy-server=%s' % proxy)
 
 with webdriver.Chrome(options=chrome_options) as browser:
   browser.get(url)
-  print(browser.find_element(By.ID, ''))
+  print(browser.find_element(By.ID, 'd_clip_button').find_element(By.TAG_NAME, 'span').text)
+  time.sleep(5)
