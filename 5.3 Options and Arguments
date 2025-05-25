@@ -60,3 +60,16 @@ with webdriver.Chrome(options=options_chrome) as browser:
 
 Запуск браузера в скрытом режиме, очень прост, достаточно запомнить всего один параметр и синтаксис.
 Для этого нам потребуется метод .add_argument() и передать ему параметр --headless. Для примера откроем 
+первую страницу Яндекса, и получим первую найденную ссылку.
+
+from selenium import webdriver
+from selenium.wendriver.common.by import By
+
+options_chrome = webdriver.ChromeOptions()
+options_chrome.add_argument('--headless')
+
+with webdriver.Chrome(options=options_chrome) as browser:
+  url = 'https://yandex.ru'
+  browser.get(url)
+  a = browser.find_element(By.TAG_NAME, 'a')
+  print(a.get_attribute('href'))
