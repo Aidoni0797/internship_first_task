@@ -74,4 +74,14 @@ with webdriver.Chrome(options=options_chrome) as browser:
   a = browser.find_element(By.TAG_NAME, 'a')
   print(a.get_attribute('href'))
 
->>> https://passport.yandex.ru/auth?origin=home_yandexid&
+>>> https://passport.yandex.ru/auth?origin=home_yandexid&retpath=https%3A%2F%2Fyandex.ru&backpath=https%3A%2F%2Fyandex.ru
+
+Большое количество команд для хрома можно найти тут - https://peter.sh/experiments/chromium-command-line-switches/
+
+Преимущества запуска браузера в фоновом режиме
+
+- Отсутствует отрисовка содержимого, тем самым потребляется меньше ресурсов.
+- Работает быстрее, т.к. не нужно ничего отрисовывать) Использование --headless может значительно
+ускорить работу парсера на относительно слабых машинах.
+- Не занимает место на экране, и не мешает вашей работе во время выполнения скрипта.
+- Использование --headless может значительно ускорить работу парсера, на относительно слабых машинах.
