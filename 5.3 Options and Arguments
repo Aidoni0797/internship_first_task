@@ -203,4 +203,20 @@ with webdriver.Chrome(options=chrome_options) as browser:
 proxy. Если этот прокси еще живой, можете запустить этот код у себя в IDE. Если прокси умер, 
 то с помощью скрипта в первом абзаце можете спарсить себе новый список.
 
-Подробно 
+Подробно requests, мы можем установить timeout= для загрузки страницы, после истечению которого
+произойдет, либо закрытие окна, либо переход к следующему прокси.
+
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+
+proxy_list = ['8.218.83.33:80', '199.60.103.28:80',
+'103.151.246.38:10001', '199.60.103.228:80',
+'199.60.103.228:80', '199.60.103.28:80',]
+
+for PROXY in proxy_list:
+  try:
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.add_argument('--proxy-server=%s' % PROXY)
+    url = 'https://2ip.ru'
+
+    with 
