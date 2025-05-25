@@ -219,4 +219,14 @@ for PROXY in proxy_list:
     chrome_options.add_argument('--proxy-server=%s' % PROXY)
     url = 'https://2ip.ru'
 
-    with 
+    with webdriver.Chrome(options=chrome_options) as browser:
+      browser.get(url)
+      print(browser.find_element(By.ID, 'd_clip_button').find_element(By.TAG_NAME, 'span').text)
+
+      browser.set_page_load_timeout(5)
+      proxy_list.remove(PROXY)
+  except Exception as _ex:
+      print(f"Превышен  timeout ожидания дата - {PROXY}")
+      continue
+
+В этом примере, есть список прокси proxy_list, по которому мы итерируемая в цикле for, передавая
