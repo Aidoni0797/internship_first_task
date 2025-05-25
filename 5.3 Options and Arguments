@@ -271,4 +271,6 @@ with webdriver.Chrome(seleniumwire_options=options) as browser:
   print(browser.find_element(By.ID, 'd_clip_button').find_element(By.TAG_NAME, 'span').text)
   time.sleep(5)
 
-Как вы можете заметить, структура кода почти не 
+Как вы можете заметить, структура кода почти не изменилась: мы использовали options=options, 
+а теперь используем seleniumwire_options=options, в словаре options, лежит прокси 
+с авторизацией, и нам не нужно использовать метод добавления аргумента .add
