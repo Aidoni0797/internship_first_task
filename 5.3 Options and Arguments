@@ -97,4 +97,5 @@ import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 
-options_chrome = webdriver.ChromeOptions
+options_chrome = webdriver.ChromeOptions()
+options_chrome.add_extension('coordinates.crx')
