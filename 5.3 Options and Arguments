@@ -73,3 +73,5 @@ with webdriver.Chrome(options=options_chrome) as browser:
   browser.get(url)
   a = browser.find_element(By.TAG_NAME, 'a')
   print(a.get_attribute('href'))
+
+>>> https://passport.yandex.ru/auth?origin=home_yandexid&
