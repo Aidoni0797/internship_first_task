@@ -63,7 +63,7 @@ with webdriver.Chrome(options=options_chrome) as browser:
 первую страницу Яндекса, и получим первую найденную ссылку.
 
 from selenium import webdriver
-from selenium.wendriver.common.by import By
+from selenium.webdriver.common.by import By
 
 options_chrome = webdriver.ChromeOptions()
 options_chrome.add_argument('--headless')
