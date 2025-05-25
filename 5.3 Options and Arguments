@@ -134,3 +134,23 @@ with webdriver.Chrome(options=options_chrome) as browser:
   browser.get(url)
   time.sleep(10)
 
+(полная фигня iDONi код не работает)
+
+import time
+from selenium import webdriver
+
+options_chrome = webdriver.ChromeOptions()
+
+with webdriver.Chrome(options=options_chrome) as browser:
+  url='https://aidoni0797.github.io/'
+  browser.get(url)
+  time.sleep(10)
+(этот код заработал)
+
+Если все сделано правильно, то у вас запустится окно браузера с вашими параметрами, историей,
+закладками.
+
+Если у вас возникает ошибка "invalid argument:user data directory is already in use, please specify
+a unique value for", значит, данный профиль уже используется. Закройте основной браузер и повторите
+попытку. Если вам необходимо основное окно браузера, то скопируйте полностью папку \User Data\ 
+в удобное место и укажите путь к ней.
