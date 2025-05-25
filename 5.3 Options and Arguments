@@ -89,4 +89,12 @@ with webdriver.Chrome(options=options_chrome) as browser:
 самое что и --headless - запускает браузер без головы.
 
 Если вам потребуется запустить браузер с расширениями и в режиме --headless, то необходимо прописать
-options.add_argument("")
+options.add_argument("--headless=chrome")
+
+Код будет выглядеть примерно так:
+
+import time
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+
+options_
