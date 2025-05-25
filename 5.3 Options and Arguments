@@ -108,3 +108,12 @@ with webdriver.Chrome(options=option_chrome) as browser:
   time.sleep(5)
   a = browser.find_element(Bt.TAG_NAME, 'a')
   print(a.get_attribute('href'))
+
+Перенос профиля с основного браузера Chrome в браузер под управлением Selenium
+
+Вы можете захотеть перенести все настройки, закладки, историю с основного браузера, в браузер под
+управлением Selenium. Сейчас я вам покажу как это можно сделать.
+
+- Определяем путь к папке с профилями \User Data\, для этого напишите команду, в адресной строке
+браузера chrome://version/ и ищите адрес в поле с заголовком "Путь к профилю:" У меня адрес
+выглядит вот так: C:\Userr\user\AppData\Local\Google\
