@@ -254,3 +254,21 @@ from selenium import webdriver
 Если у вас есть рабочий прокси, используйте его, или приобретите за 33 р/шт в магазине 
 (iDONi хочет научиться зарабатывать а здесь предлагает покупать. iDONi же без средств сидить и учится) 
 https://proxy6.net/ru/, для запуска следующего кода (прокси в примере ниже, может не работать.)
+
+import time
+from selenium.webdriver.common.by import By
+from seleniumwire import webdriver
+
+opriotns = {'proxy':{
+  'http': 'socks5://D2FRs6:75JjrW@194.28.210.39:9867',
+  'https': 'socks5://D2Frs6:75JjrW@194.28.210.39:9867',
+}}
+
+url = 'https://2ip.ru/'
+
+with webdriver.Chrome(seleniumwire_options=options) as browser:
+  browser.get(url)
+  print(browser.find_element(By.ID, 'd_clip_button').find_element(By.TAG_NAME, 'span').text)
+  time.sleep(5)
+
+Как вы можете заметить, структура кода почти не 
