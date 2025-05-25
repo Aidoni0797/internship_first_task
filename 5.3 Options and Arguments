@@ -154,3 +154,41 @@ with webdriver.Chrome(options=options_chrome) as browser:
 a unique value for", значит, данный профиль уже используется. Закройте основной браузер и повторите
 попытку. Если вам необходимо основное окно браузера, то скопируйте полностью папку \User Data\ 
 в удобное место и укажите путь к ней.
+
+Proxy and Selenium
+
+Работа с прокси в Selenium очень проста, намного проще, чем в requests, где мы создавали словарь,
+прописывали в ключах схемы, и затем передавали его в запросе.
+
+Мы можем узнать свой IP на сайте (https://2ip.ru/). Выполните код ниже, чтобы увидеть к принт 
+в консоли с вашим IP адресом.
+
+import time
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+
+url='https://2ip.ru'
+with webdriver.Chrome() as browser:
+  browser.get(url)
+  print(browser.find_element(By.ID, 'd_clip_button').find_element(By.TAG_NAME, 'span').text)
+  time.sleep(5)
+
+>>> 95.27.00.01
+
+Теперь модифицируем данный код, чтобы запрос отправлялся через прокси.
+
+Прокси должен быть вида IP:PORT
+
+import time
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+
+proxy = ['8.210.83.33:80']
+url = 'https://2ip.ru/'
+
+chrome_options = webdriver.ChromeOptions()
+chrome_options.add_argument('--proxy-server=%s' % proxy)
+
+with webdriver.Chrome(options=chrome_options) as browser:
+  browser.get(url)
+  print(browser.find_element(By.ID, ''))
