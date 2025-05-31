@@ -202,3 +202,20 @@ with webdriver.Chrome() as browser:
 element="c2651e50-25a3-41bb-ad8d-5a259929bbfe")>
 
 (iDONi когда запускает данный код к ожелению ответа нет и почему же, Бог знает)
+
+Это элемент selenium, который не поддерживает срезы. Давайте попытаемся получить элемент [0] 
+у этого объекта и посмотрим на результат.
+
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+
+url = 'http://parsinger.ru/selenium/3/3.html'
+with webdriver.Chrome() as browser:
+  browser.get(url)
+  link = browser.find_element(By.CLASS_NAME, 'text')
+  print(link[0])
+
+>>> Traceback (most recent call last):
+File "G:\Мой диск\stepik\stepik_like=task_2.py", line 26, in <module>
+  print(link[0])
+TypeError: 'WebElement' object is not subscriptable
