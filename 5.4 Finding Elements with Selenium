@@ -128,4 +128,8 @@ finally:
 нужно думать о том, когда закрывать браузер, менеджер контекста делает это за нас в тот момент, когда это
 нужно.
 
+import time
+from selenium import webdriver
+from selenium.webdriver.common.by importBy
 
+with webdriver.Chrome() as browse
