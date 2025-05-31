@@ -130,6 +130,18 @@ finally:
 
 import time
 from selenium import webdriver
-from selenium.webdriver.common.by importBy
+from selenium.webdriver.common.by import By
 
-with webdriver.Chrome() as browse
+with webdriver.Chrome() as browser:
+  browser.get('https:parsinger.ru/html/watch/1/1_1.html')
+  button = browser.find_element(By.ID, "sale_button")
+  time.sleep(2)
+  button.click()
+  time.sleep(2)
+
+Выполните эти три примера у себя в терминале, чтобы посмотреть как все работает. И вы увидите что всё
+работает.
+
+Самое время сказать, что вообще-то есть два похожих метода, которые часто путают новички: это
+browser.close() and browser.quit(). Сможете догадаться, чем они отличаются, не подглядывая в текст
+дальше?
