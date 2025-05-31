@@ -174,7 +174,7 @@ Selenium. Поэтому их нужно хорошо понимать.
 .find_element() вернет нам объект вебдрайвера, который не поддерживает срезы. Выполним следующий код:
 
 from selenium import webdriver
-from selenium.webdriver.commpn.by import BY
+from selenium.webdriver.common.by import By
 
 url = 'http://parsinger.ru/selenium/3/3.html'
 
@@ -185,3 +185,20 @@ with webdriver.Chrome() as browser:
 
 >>> <class 'selenium.webdriver.remote.webelement.WebElement'>
 
+Мы видим, что возвращаемый тип объекта - это экземпляр класса, который содержит в себе список элементов
+<p> в количестве трех штук, как показано на первом скриншоте. Но это не простой список.
+
+Давайте посмотрим на возвращаемый объект.
+
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+
+url = 'http://parsinger.ru/selenium/3/3.html'
+with webdriver.Chrome() as browser:
+  browser.get(url)
+  link = browser.find_element(By.CLASS_NAME, 'text')
+
+>>> <selenium.webdriver.remote.webelement.WebElement (session="a7cb2c979d456b7cae336e5eafa4ad6b",
+element="c2651e50-25a3-41bb-ad8d-5a259929bbfe")>
+
+(iDONi когда запускает данный код к ожелению ответа нет и почему же, Бог знает)
