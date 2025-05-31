@@ -107,4 +107,22 @@ browser.quit()
 
 Если ошибка произойдет во время выполнения кода до команды .quit(), сеанс WebDriver не будет закрыт
 должным образом и файлы не будут удалены из памяти.
-Для того, чтобы код гарантированно завершил свою работу командой browser.quit(), используем
+Для того, чтобы код гарантированно завершил свою работу командой browser.quit(), используем конструкцию
+try/finally. Весь код после finally: будет гарантированно выполнен.
+
+import time
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+
+try:
+  browser = webdriver.Chrome()
+  browser.get('http://parsingger.ru/html/watch/1/1_1.html')
+  button = browser.find_element(By.ID, "sale_button")
+  time.sleep(2)
+  button.click()
+  time.sleep(2)
+finally:
+  browser.quit()
+
+Но есть еще третий способ, мой любимый, - это менеджер контекста with/as. С этим способом нам вообще не
+нужно думать о том, когда закрывать браузер, менеджер контекста делает это 
