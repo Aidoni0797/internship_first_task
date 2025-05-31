@@ -79,8 +79,5 @@ from selenium.webdriver.common.by import By
 browser = webdriver.Chrome()
 browser.get("http://parsinger.ru/html/watch/1/1_1.html")
 button = browser.find_element(By.ID, "sale_button").click()
-from selenium.webdriver.common.by import By
 
-browser = webdriver.Chrome()
-browser.get('http://parsinger.ru/html/watch/1/1_1.html')
-button = browser.find_element(By.ID, "sale_button").click()
+Думаю, разница понятна. Выбирайте, какой из методов поиска гравится лично вам, и поехали дальше.
