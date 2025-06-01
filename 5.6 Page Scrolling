@@ -77,3 +77,22 @@ with webdriver.Chrome() as browser:
   print(height)
 
 >>>887
+
+887 пикселей имеет видимая часть нашего сайта. Иногда необходимо, чтобы требуемый элемент находился в
+видимой области, т.к. методы .click(), .send_keys() и др. не могут быть совершены если элемент не 
+находится в видимой области экрана.
+
+Если вам необходимо совершить скроллинг в самый низ к последнему пикселю одним из самых простых способов,
+то используйте скрипт "window.scrollTo(0, document.body.scrollHeight)"
+
+import time
+from selenium import webdriver
+
+with serbdriver.Chrome() as browser:
+  browser.get('http://parsinger.ru/scroll/1/')
+  browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+  time.sleep(2)
+
+При написании парсеров, часто необходимо сперва совершить необходимое количество скроллинга, чтобы
+загрузилась вся необходимая вам информация. После того как вся нужная инфа появилась на странице, мы
+собираем всё при помощи .find_elements(), но об этом мы будем говорить далее.
