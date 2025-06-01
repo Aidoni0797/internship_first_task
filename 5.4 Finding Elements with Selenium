@@ -219,3 +219,38 @@ with webdriver.Chrome() as browser:
 File "G:\Мой диск\stepik\stepik_like=task_2.py", line 26, in <module>
   print(link[0])
 TypeError: 'WebElement' object is not subscriptable
+
+Получае ошибку, которая подтверждает, что объект не может быть итерирован. Так происходит, потому что
+все элементы <p>, которые мы храним в этом объекте, являются как бы одним целым.
+А вот извлечь из этого обхекта текст очень просто, достаточно применить к нему метод .text.
+
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+
+url = 'http://parsinger.ru/selenium/3/3.html'
+
+with webdriver.Chrome() as browser:
+  browser.get(url)
+  link = browser.find_element(By.CLASS_NAME, 'text')
+  print(link.text)
+
+>>> 191817
+    121314
+    151715
+
+.find_element() - Возвращает первый найденный элемент соответствующий нашим критериям поиска.
+(имеется ввиду элемент веб-драйвера, который содержит внутри себя элемент/тег DOM)
+
+.find_elements() - Возвращает все найденные элементы, соответствующие критериям поиска и сохраняет
+результат в список <class 'list'>, но список будет наполнен не элементами <p>, а элементами веб
+драйвера, которые будут содержать в себе элементы DOM.
+
+Как все таки быть, если нам нужен каждый второй или третий элемент на странице?
+
+Мы всегда можем решить эту задачу при помощи XPath.
+
+.find_element(By.XPath, "//div[@class='text']/p[2]") - вернет нам второй элемент <p>,
+первого найденного элемента <div class="text">.
+
+.find_elements(By.XPATH, "//div[@class='text']/p[2]") - соответственно, вернёт все найденные элементы 
+<p>, расположенные на вторых позициях, во всех найденных <div class="text">.
