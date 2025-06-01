@@ -43,4 +43,22 @@ with webdriver.Chrome() as browser:
     browser.execute_script("window.scrollBy(0,5000)")
     time.sleep(2)
 
+Мы сделали 10 итераций и не оказались в самом низу страницы. Потому что мы не знаем, сколько пикселей
+имеет в высоту наш сайт. Мы можем использовать большие значения, к прмеру, window.scrollBy(0,5000000),
+такие большие цифры за один скроллинг способы прокрутить всю страницу. И это то, что вы будете делать,
+когда у вас обычный сайт без прогрузки данных.
 
+Представим, что у вас сайт, который имеет разные высоты страницы. Мы можем получить значение высоты
+непосредственно той части сайта, которая попадает в область вашей видимости, или значение высоты сайта
+полностью.
+
+return document.body.scrollHeight вернёт значение высоты основного элемента на странице - body
+
+import time
+from selenium import webdriver
+
+with webdriver.Chrome() as browser:
+  browser.get('http://parsinger.ru/scroll/1/')
+  height = browser.execute_script("return document.body.scrollHeight")
+  time.sleep(2)
+  print(height)
