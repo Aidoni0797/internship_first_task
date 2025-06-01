@@ -139,4 +139,10 @@ with webdriver.Chrome() as webdriver:
   webdriver.get('https://ya.ru/')
   cookies = webdriver.get_cookies()
   for cookie in cookies:
-    
+    print(cookie['name']) # cookie['value'] чтобы получить их значение
+
+>>>
+_ym_d, _ym_isad, _ym_uid, my, gdpr, _yasc, i, is_gdpr, yuidss
+yabs-frrequence, is_gdpr_b, yandexuid, yp, mda, ymex, yandex_gid
+
+- Когда мы знаем имена cookie на странице, мы можем получить нужные нам данные по ключу
