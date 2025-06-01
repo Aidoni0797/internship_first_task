@@ -62,3 +62,18 @@ with webdriver.Chrome() as browser:
   height = browser.execute_script("return document.body.scrollHeight")
   time.sleep(2)
   print(height)
+
+81000 пикселей имеет в высоту наш сайт. Для того, чтобы вычислить высоту видимой области сайта,
+используется скрипт
+
+Используется код window.innerHeight для получения высоты, или window.innerHeight - для получения
+ширины видимой области.
+
+from selenium import webdriver
+
+with webdriver.Chrome() as browser:
+  browser.get('http://parsinger.ru/scroll/1/')
+  height = browser.execute_script("return window.innerHeight")
+  print(height)
+
+>>>887
