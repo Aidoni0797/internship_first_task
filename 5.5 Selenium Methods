@@ -133,7 +133,7 @@ cookie именно в браузере;
 Способ №2 - мы можем в цикле for/in итерироваться по списку cookie, который мы получили с помощью метода
 .get_cookies(). Этим способом мы можем получить не только имя cookie, но и его значение.
 
-. from selenium import webdriver
+from selenium import webdriver
 
 with webdriver.Chrome() as webdriver:
   webdriver.get('https://ya.ru/')
@@ -145,4 +145,15 @@ with webdriver.Chrome() as webdriver:
 _ym_d, _ym_isad, _ym_uid, my, gdpr, _yasc, i, is_gdpr, yuidss
 yabs-frrequence, is_gdpr_b, yandexuid, yp, mda, ymex, yandex_gid
 
-- Когда мы знаем имена cookie на странице, мы можем получить нужные нам данные по ключу
+- Когда мы знаем имена cookie на странице, мы можем получить нужные нам данные по ключу. Мы
+помним, что .get_cookies() возвращает список словарей. Если вы посмотрите на первй пример с кодом,
+вы увидите, что в cookie хранится время экспирации 'expiry': 1685518907, т.е., время истечения срока
+жизни cookie. Пример кода ниже поможет нам извлечь конкретное значение из cookie.
+
+from selenium import webdriver
+
+with webdriver.Chrome() as webdriver:
+  webdriver.get('https://ya.ru/')
+  print(webdriver.get_cookie('_ym_uid')['expiry'])
+
+>>>1685520499
