@@ -45,4 +45,5 @@
 - webdriver.add_cookie(cookie_dict) - добавляет cookie к вашему текущему сеансу;
 - webdriver.delete_cookie(name_cookie) - удаляет cookie с заданным именем;
 - webdriver.delete_all_cookies() - удаляет все фаайлы cookie в рамках текущего сеанса;
-- webdriver.im
+- webdriver.implicitly_wait(10) - устанавливает неявное ожидание поиска элемента, или для команды
+завершения;
