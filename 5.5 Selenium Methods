@@ -24,4 +24,25 @@
 оперативную память;
 - webdriver.close() - закрывает текущую вкладку;
 - webdriver.excute_script("script_code") - исполняет на странице переданный JavaScript код;
-- 
+- webdriver.execute_async_script("script_code", *args) - асинхронно выполняет код JavaScript на 
+странице;
+- webdriver.set_page_load_timeout() - устанавливает timeout ожидания загрузки страницы, после чего
+выбрасывает исключение;
+- webdriver.find_element("element" or "locator- By.") - возвращает resultSet найденных элементов,
+с ним можно работать как со списком;
+- webdriver.find_elements("element", or "locator- By.") - возвращает resultSet найденных элементов, с
+ним можно работать как со списком;
+- webdriver.get_window_position() - возвращает позицию открытого окна браузера, возвращается словарь
+{'x':10, 'y':50};
+- webdriver.maximize_window() - разворачивает текущее окно;
+- webdriver.minimize_window() - сворачивает текущее окно;
+- webdriver.fullscreeen_window() - максимизирует активное окно браузера, аналогично нажатию клавиши F11;
+- webdriver.get_window_size() - получает текущий размер окна браузера + рамки окна и панель управления
+браузера, возвращает словарь {'width':945, 'height': 1020};
+- webdriver.set_window_size(800,600) - устанавливает высоту и ширину браузера;
+- webdriver.get_cookies() - возвращает словарь с cookies;
+- webdriver.get_cookies(name_cookie) - возвращает набор cookie по его имени;
+- webdriver.add_cookie(cookie_dict) - добавляет cookie к вашему текущему сеансу;
+- webdriver.delete_cookie(name_cookie) - удаляет cookie с заданным именем;
+- webdriver.delete_all_cookies() - удаляет все фаайлы cookie в рамках текущего сеанса;
+- webdriver.im
