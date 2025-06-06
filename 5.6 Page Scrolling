@@ -214,7 +214,7 @@ with webdriver.Chrome() as browser:
 
 import time
 from selenium.webdriver import Keys
-from.selenium import webdriver
+from selenium import webdriver
 from selenium.webdriver.common.by import By
 
 with webdriver.Chrome() as browser:
@@ -229,3 +229,21 @@ with webdriver.Chrome() as browser:
         tag_input.click()
         time.sleep(1)
         list_input.append(tag_input)
+
+Мы совсем чуть-чуть усложнили этот код =).
+
+Мы добавили бесконечный цикл while для того, чтобы добраться абсолютно до всех элементов
+на странице, в этом коде отсутствует условие прерывание бесконечного цикла, но об этом поговорим дальше.
+
+[x for x in browser.findlements(By.TAG_NAME, 'input')] генерирует список из всех найденных на странице
+элементов, тегов <input>, при каждой новой загрузке данных с сервера.
+
+list_input.append(tag_input), в конце цикла for, добавляет элемент в список list_input, который мы
+создали для того, чтобы хранить все элементы, с которыми уже взаимоействовали, чтобы не взаимодействовать
+с ним дважды.
+
+if tag_input not in list_input: это условие проверяет, есть ли элемент в контрольном списке list_input.
+Если элемент отсутствует, то совершаем взаимодействие tag_input.click().
+
+Запустите последний пример у себя в терминале и понаблюдайте за происходящим, всё куда проще, чем
+кажется.
