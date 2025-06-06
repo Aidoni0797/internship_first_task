@@ -374,3 +374,30 @@ with webdriver.Chrome() as browser:
   actions.click()
   "тут может находится любой код, от time.sleep() до перехода в новую вкладку и т.д."
   actions.perform()
+
+
+
+Прокрутка страницы - способ 4 scroll_by_amount()
+
+В версии Selenium 4.2 плявился замечательный метод .scroll_by_amount(), который позволяет
+скролить любое окно на заданное количество пикселей. Этот метод намного упрощает 
+взаимодействие с окнами, в которых присутствует элемент скроллинга. Чтобы этот метод заработал,
+обновите ваш selenium до последней версии.
+
+scroll_by_amount(delta_x, delta_y) -
+  - delta_x: расстояние по оси Х для прокркутки с помощью колеса. Отрицательное значение 
+прокручивается влево.
+  - delta_y: расстояние по оси Y для прокрутки с помощью колеса. Отрицательное значение
+прокручивается вверх.
+
+Этот метод работает в цепочке событий ActionChains.
+
+from selenium import webdriver
+from selenium.webdriver.common.action_chains import ActionChains
+from seleniium.webdriver.common.by import By
+
+with webdriver.Chrome() as browser:
+  browser.get('https://parsinger.ru/infiniti_scroll_2/')
+  div = browser.find_element(By.CLASS_NAME, 'scroll_div_example')
+  while True:
+    ActionChains(browser).move_to_element(div).scroll_by_amount(1,500).perform()
