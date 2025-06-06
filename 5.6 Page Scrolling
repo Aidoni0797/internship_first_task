@@ -201,3 +201,31 @@ with webdriver.Chrome() as browser:
   for input in tags_input:
     input.send_keys(Keys.DOWN)
     time.sleep(1)
+
+Запустите этот код у себя в терминале и вы увидите, что этот код поочередно выделяет(беерт фокус)
+все <input> на странице. Наш сайт - тренажер довольно примитивен и отдает весь список тегов
+<input> разом.
+
+Для понимания следующего примера откройте любой степ на степике, у которого более 100 комментариев,
+и попробуйте пролистать к самому последнему комментарию. Вы увидите несколько загрузок с сервера.
+Приведенный выше пример с циклом for обработал бы только первые 17 элементов, т.к. они были бы
+загружены при открытии страницы. Чтобы решить эту проблему и оборабатывать все подгружаемые элементы,
+давайте модифицируем этот код.
+
+import time
+from selenium.webdriver import Keys
+from.selenium import webdriver
+from selenium.webdriver.common.by import By
+
+with webdriver.Chrome() as browser:
+  browser.get('http://parsinger.ru/scroll/1/')
+
+  list_input = []
+  while True:
+    input_tags = [x for x in browser.find_elements(By.TAG_NAME, 'input')]
+    for tag_input in input_tags:
+      if tag_input not in list_input:
+        tag_input.send_keys(Keys.DOWN)
+        tag_input.click()
+        time.sleep(1)
+        list_input.append(tag_input)
