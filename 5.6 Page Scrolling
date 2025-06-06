@@ -317,3 +317,41 @@ PAGE_UP
 RIGHT
 SHIFT
 TAB
+
+
+Прокрутка содержимого страницы - способ 3 ActionChains()
+
+ActionChains() - цепочка действий, это способ автоматизации низкоуровневых взаимодействий, таких
+как движения мыши, действия кнопок мыши, нажатие клавиш и взаимодействие с контекстным меню.
+
+Импортируем: from selenium.webdriver.common.action_chains import ActionChains
+
+Когда вы вызываете методы для действий в объекте ActionChains, действия сохраняются в очереди 
+в объекте ActipnChains. Когда вы вызываете .perform(), события запускаются в том порядке, в
+котором они стоят в очереди.
+
+ActionChains(webdriver) - принимает единнственный объект, объект webdriver'a.
+
+.perform() - выполняет запуск цепочки действий, написание этого метода в конце каждой цепочки,
+просто необходимо для его запуска.
+
+menu = driver.findelement(By.CSS_SELECTOR, '.nav')
+hidden_submenu = driver.find_element(By.CSS_SELECTOR, '.nav #submenu1')
+
+action = ActionChains(driver)
+time.sleep(1)
+action.move_to_element(menu)
+time.sleep(1)
+action.click(hidden_submenu)
+time.sleep(1)
+action.perform()
+
+Для примера, чтобы переместится к определенному элементу и кликнуть по нему, мы напишем следующий код
+
+from selenium.webdriver.chrome.options import Options
+from selenium import webdriver
+from selenium.webdriver.common.action_chains import ActionChaind
+
+with webdriver.Chrome() as browser:
+  target = browser.find_element(By.ID, 'like')
+  actions = ActionChains(browser).move_to_element(target).click().perform()
