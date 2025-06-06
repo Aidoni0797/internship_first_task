@@ -394,10 +394,34 @@ scroll_by_amount(delta_x, delta_y) -
 
 from selenium import webdriver
 from selenium.webdriver.common.action_chains import ActionChains
-from seleniium.webdriver.common.by import By
+from selenium.webdriver.common.by import By
 
 with webdriver.Chrome() as browser:
   browser.get('https://parsinger.ru/infiniti_scroll_2/')
-  div = browser.find_element(By.CLASS_NAME, 'scroll_div_example')
+  div = browser.find_element(By.CLASS_NAME, 'scroll-container')
   while True:
     ActionChains(browser).move_to_element(div).scroll_by_amount(1,500).perform()
+
+
+Как это работает:
+1. В переменной div мы определяем окно, которое мы собираемся прокручивать, оно должно иметь полосу
+прокрутки, иначе ничего не произойдет.
+2. Цикл while для постоянной покрутки, без цикла скроллинг происходит один раз, что не подойдет для 
+бесконечно подгружаемых элементов.
+3. ActionChains(browser) - создаем цепочку событий
+4. .move_to_element(div) - перемещаемся к элементу веб драйвера, который мы записали в перменную div.
+5. .scroll_by_amount(1, 500) - скроллинг применяется к элементу в методе .move_to_element(div).
+
+Как итог, мы получаем код, который бесконечно скролит элемент, и нужно думать над его прерыванием.
+Если мы знаем, какой длины список, мы можем использовать цикл for. Если вы уверены, что вам хватит
+прокрутить элемент 10 рах по 500px, то можно использовать такой подход.
+
+from selenium import webdriver
+from selenium.webdriver.common.actioon_chains import ActionChains
+from selenium.webdriver.common.by import By
+
+with webdriver.Chrome() as browser:
+  browser.get('https://parsinger.ru/infiniti_scroll_2/')
+  div = browserr.find_element(By.XPATH, '//*[@id="scroll-container"]/div')
+  for x in range(10):
+    ActionChains(browser).move_to_element(div).scroll_by_amount(1, 500).perform
