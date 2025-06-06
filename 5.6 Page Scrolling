@@ -355,3 +355,22 @@ from selenium.webdriver.common.action_chains import ActionChains
 with webdriver.Chrome() as browser:
   target = browser.find_element(By.ID, 'like')
   actions = ActionChains(browser).move_to_element(target).click().perform()
+
+Обратите внимание, что методу .move_to_element() необходимо указать цель, целью служит любой
+интерактивный элемент на странице, кнопка, ссылка, форма и т.д. Об остальных методах мы 
+поговорим в следующем степе, а пока покажу, как тот же самый код написать более гибким способом.
+
+import time
+from selenium.webdriver.chrome.options import Options
+from selenium import webdriver
+from selenium.webdriver.common.action_chains impoty ActionChains
+
+with webdriver.Chrome() as browser:
+  target = browser.find_element(By.ID, 'like')
+  actions = ActionChains(browser)
+  "тут может находится любой код, от time.sleep() до перехода в новую вкладку и т.д."
+  actions.move_to_element(target)
+  "тут может находится любой код, от time.sleep() до перехода в новую вкладку и т.д."
+  actions.click()
+  "тут может находится любой код, от time.sleep() до перехода в новую вкладку и т.д."
+  actions.perform()
