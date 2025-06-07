@@ -66,3 +66,5 @@ with webdriver.Chrome() as browser:
   print(browser.find_element(By.ID, 'result').text)
 
 >>> Введённый текст
+
+Код
