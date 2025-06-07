@@ -72,4 +72,23 @@ with webdriver.Chrome() as browser:
 на странице  в id = "result" появляется пользователем текст, который печатается в самом конце
 выполнения кода.
 
-При работе в Chrome с окном prompt, введённый текст,
+При работе в Chrome с окном prompt, введённый текст, в самом окне не отображается, хотя код выше
+возвращает нам текст который ввёл пользователь. Это доказывает то, что .send_keys() работает, но не так
+как следует, вина это Selenium или Chrome не понятно. К примеру в Firefox или Opera такой проблемы не наблюдается.
+
+Модальное окно Confirm
+
+Модальное окно confirm имеет всего 2 кнопки, "Ок" и "Отмена", взаимодействовать с которыми мы можем
+функциями .accept() и .dismiss()
+
+import time
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+
+with webdriver.Chrome() as browser:
+  browser.get('http://parsinger.ru/blank/modal/1/index.html')
+  browser.find_element(By.ID, 'confirm').click()
+  time.sleep(2)
+  prompt = browser.switch_to.alert
+  prompt .accept() #Замените на .dismiss() чтобы нажать на кнопку "Отмена"
+  time.sleep(.5)
