@@ -199,3 +199,9 @@ with webdriver.Chrome() as browser:
   browser.execute_script('window.open("http://parsinger.ru/blank/2/4.html", "_blank3");')
   time.sleep(2)
   print(browser.window_handles)
+
+>>>['C3742153167959E42EEBB4482E79A534', 'A304A3EB18F87CF1E7075854334E3571', '04284FC22FD5B16F872F50B7F111A99F', 'B10CC0A3039C93FE257BFEB9F95A7876']
+
+В некоторых гайдах в интернете, вы будете встречать информацию о том, что работать вы можете только в
+первой, открытой вкладке, а остальные открываются для красоты. Но хочу вас обрадовать, это совсем не так.
+Работать мы можем  со всеми
