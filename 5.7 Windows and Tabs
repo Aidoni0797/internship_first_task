@@ -152,3 +152,12 @@ with webdriver.Chrome() as browser:
   browser.get('http://parsinger.ru/window_size/1/')
   browser.set_window_size(1200, 720)
   print(browser.get_window_size())
+
+Как и при работе с любым словарем, мы можем получить доступ к ширине или высоте по ключу ["width"]
+and ["height"]
+
+from selenium import webdriver
+
+with webdriver.Chrome() as browser:
+  browser.get('http://parsinger.ru/window_size/1')
+  browse
