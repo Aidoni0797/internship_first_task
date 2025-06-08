@@ -247,3 +247,19 @@ with webdriver.Chrome() as browser:
     browser.switch_to.window(browser.window_handles[x])
     time.sleep(1)
     print(browser.execute_script("return document.title;"), browser.window_handles[x])
+
+Получаем title вкладки
+
+title - это то, что содержится в HTML тегах <title>Текст на вкладке</title> и то что отображается на 
+вкладке браузера.
+
+Чтобы получить имя вкладки, т.е., ее title, используется метод .execute_script("return document.title;"),
+в который мы передали код Javascript, возвращающий имя вкладки.
+
+Запустите код ниже, у себя в терминале. Этот код откроет степик, и напечает вам в консоли title вкладки.
+
+from selenium import webdriver
+
+with webdriver.Chrome() as browser:
+  browser.get("https://stepik.org/course/104774/promo")
+  print(browser.execute_script("return document.title;"))
