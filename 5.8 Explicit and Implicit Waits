@@ -66,3 +66,7 @@ element = WebDriverWait(browser, 10).until(EC.element_to_be_clickable((By.ID, "b
 функцию until, которая непосредственно и выполняет всю работу. К этой функции мы применили метод 
 .element_to_be_clickable, который проверяет на кликабельность переданный ему элемент, и потом функция
 .click() совершает клик в нужный момент.
+
+Больше методов ожиданий - https://www.selenium.dev/selenium/docs/api/py/webdriver_support/selenium.webdriver.support.expected_conditions.html#selenium.webdriver.support.expected_conditions.invisibility_of_element_located
+
+WebDriverWait(browser, 10).until(EC.element_to_be_clickable)
