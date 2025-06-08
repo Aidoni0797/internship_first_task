@@ -210,4 +210,16 @@ with webdriver.Chrome() as browser:
 Обратите внимание на то, что мы получаем длину списка. Обратите внимание и на то, что итерация 
 по вкладкам происходит в обратном порядке, от последней к первой, чтобы этого избежать, просто добавляем
 к циклу функцию reversed(). Так же следует обратить внимание на, что самая первая вкладка имеет имя
-data;в этой вкладке открывается страница
+data;в этой вкладке открывается страница, переданная в метод .get("URL").
+
+from selenium import webdriver
+from selenium.webdriver.commpn.by import By
+
+with webdriver.Chrome() as browser:
+  #browser.get("https://stepik.org/course/104774/promo") #Вместо вкладки data; вкладка в которой будет загружен степик
+  browser.execute_script("wibdow.open('http://parsinger.ru/blank/2/1.html', '_blank1');")
+  browser.execute_script("wibdow.open('http://parsinger.ru/blank/2/2.html', '_blank2');")
+  browser.execute_script("wibdow.open('http://parsinger.ru/blank/2/3.html', '_blank3');")
+  browser.execute_script("wibdow.open('http://parsinger.ru/blank/2/4.html', '_blank4');")
+
+  for x in range(len(browser))
