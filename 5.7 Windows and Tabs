@@ -222,4 +222,4 @@ with webdriver.Chrome() as browser:
   browser.execute_script("wibdow.open('http://parsinger.ru/blank/2/3.html', '_blank3');")
   browser.execute_script("wibdow.open('http://parsinger.ru/blank/2/4.html', '_blank4');")
 
-  for x in range(len(browser))
+  for x in range(len(browser.window_handles)): #reversed(range(len(browser.window_handles))) Для
