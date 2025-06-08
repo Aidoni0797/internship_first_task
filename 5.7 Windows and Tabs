@@ -183,4 +183,19 @@ CDwindow-8696D8A3F222B281BB03FC1EC259B251, а в Firefox они выглядят
 - .window_hndles - возвращает список всех дескрипторов открытых вкладок;
 - .switch_to.window(window_handles[0]) - переключает фокус между вкладками.
 
-Запустите код ниже, чтобы посмотреть, как он работает. Э
+Запустите код ниже, чтобы посмотреть, как он работает. Этот код открывает первую вкладку методом
+.get("URL"), далее, открывает ещё три вкладки методом .execute_script(), и в после этого печатает все
+дескрипторы открытых вкладок.
+
+import time
+from selenium import webdriver
+
+with webdriver.Chrome() as browser:
+  result = []
+  browser.get('http://parsinger.ru/blank/2/1.html')
+  time.sleep(1)
+  browser.execute_script('window.open("http://parsinger.ru/blank/2/2.html", "_blank1");')
+  browser.execute_script('window.open("http://parsinger.ru/blank/2/3.html", "_blank2");')
+  browser.execute_script('window.open("http://parsinger.ru/blank/2/4.html", "_blank3");')
+  time.sleep(2)
+  print(browser.window_handles)
