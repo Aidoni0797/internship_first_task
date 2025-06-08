@@ -30,3 +30,17 @@ fro, selenium.webdriver.commpn.by import By
 with webdriver.Chrome() as browser:
   browser.get('http://parsinger.ru/expectations/1/index.html')
   browser.find_element(By.ID, 'btn').click()
+
+Давайте немного модифицируем код выше, чтобы он работал без ошибок. Применим неявные ожидания. О том,
+как они работают, мы поговорим в следующих степах и порешаем задачки по ним.
+
+Запустите эти два примера у себя в IDE, чтобы сравнить результат работы.
+
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
+
+with webdriver.Chrome() as browser:
+  browser.get('http://parsinger.ru/expectations/1/index.html')
+  element = WebDriverWait(browser, 10)
