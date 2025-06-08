@@ -73,4 +73,8 @@ WebDriverWait(browser, 10).until(EC.element_to_be_clickable(By.ID, "btn"))
 
 WebDriverWait(browser, poll_frequency=0.5, timeout=10) - пингует элемент каждые пол секунды в течении 10 секунд
 
-1. title_is(title) - 
+1. title_is(title) - ожидание проверки заголовка страницы. title - ожидаемый заголовок, который должен
+быть точным совпадением, возвращает True, если заголовок совпадает, в противном случае - false;
+
+2. title_contains(title) - частичная проверка заголовка. title - часть заголовка, вернет true, если title
+совпадает с частью заголовка, в противном случае false;
