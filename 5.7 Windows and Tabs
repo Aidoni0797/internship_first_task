@@ -130,4 +130,14 @@ with webdriver.Chrome() as browser:
 
 .get_window_size()
 
-Для получения размеров
+Для получения размеров окна браузщера используется метод .get_window_size(), у него есть метод 
+.get(), который принимает 2 параметра "height" and "width" соответственно, они возвращают высоту
+и ширину окна браузера.
+
+from selenium import webdriver
+
+with webdriver.Chrome() as browser:
+  browser.get('http://parsinger.ru/window_size/1/')
+  browser.set_window_size(1200, 720)
+  print(browser.get_window_size().get('height'))
+  print(browser.get_window_size().get('width'))
