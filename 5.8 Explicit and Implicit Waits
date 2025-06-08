@@ -69,4 +69,6 @@ element = WebDriverWait(browser, 10).until(EC.element_to_be_clickable((By.ID, "b
 
 Больше методов ожиданий - https://www.selenium.dev/selenium/docs/api/py/webdriver_support/selenium.webdriver.support.expected_conditions.html#selenium.webdriver.support.expected_conditions.invisibility_of_element_located
 
-WebDriverWait(browser, 10).until(EC.element_to_be_clickable)
+WebDriverWait(browser, 10).until(EC.element_to_be_clickable(By.ID, "btn"))
+
+WebDriverWait(browser, poll_frequency=0.5, timeout=10) - пингует элемент каждые
