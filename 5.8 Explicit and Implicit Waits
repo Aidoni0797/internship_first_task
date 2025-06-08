@@ -78,3 +78,10 @@ WebDriverWait(browser, poll_frequency=0.5, timeout=10) - пингует элем
 
 2. title_contains(title) - частичная проверка заголовка. title - часть заголовка, вернет true, если title
 совпадает с частью заголовка, в противном случае false;
+
+3. element_to_be_clickable(locator) - ожидает пока элемент станет кликабельным;
+
+4. presence_of_element_located(locator) - ожидает появления эелмента в DOM дереве;
+
+5. visibility_of_element_located(locator) - ожидание проверки того, что элемент присутствует в DOM
+страницы и виден. 
