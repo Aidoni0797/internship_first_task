@@ -94,4 +94,13 @@ WebDriverWait(browser, poll_frequency=0.5, timeout=10) - пингует элем
 веб-странице. Локатор используется для поиска элемента, возвращает список веб-элементов после их
 обнаружения;
 
-8. text_to_be_present_in_element(locator, "text") - ожидание проверки наличия данного текста
+8. text_to_be_present_in_element(locator, "text") - ожидание проверки наличия данного текста в указанном
+элементе;
+
+9. text_to_be_present_in_element_value(locator, "text") - ожидание проверки наличия данного текста в
+значении элемента;
+
+10. invisibility_of_element_located(locator) - ожидание проверки того, что элемент либо невидим, либо
+отсутствует в DOM.
+
+11. staleness_of(locator) - ожидает пока элемент больше не будет прикреплен к 
