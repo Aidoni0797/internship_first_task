@@ -141,3 +141,13 @@ with webdriver.Chrome() as browser:
   browser.get('https://parsinger.ru/expectations/2/index.html')
   element = WebDriverWait(browser, 10).until(EC.title_is('title changed'))
   print(element)
+
+.title_contains(title)
+
+Синтаксис: WebDriverWait(browser,5).until(EC.title_contains('tle'))
+
+То же самое, что и предыдущий код, только вернет True если title совпадает частично. Запустите код и
+поймите разницу, измените часть заголовка чтобы лучше понять разницу.
+
+from selenium import webdriver
+from 
