@@ -23,3 +23,13 @@ Singing in Telegram
 этой странице к себе в блокнот, а для наших целей хватит всего 2х полей, api_id, and api_hash, 
 их мы и будем использовать. После того как скопировали все данные в файл, нажимаем на кнопку
 Save changes и закрываем вкладку браузера.
+
+Установка и импорт библиотеки
+
+Установка
+
+pip install telethon или pip3 install telethon
+
+Импорт
+
+from telethon import TelegramClient, events, sync
