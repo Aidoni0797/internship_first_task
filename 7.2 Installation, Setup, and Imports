@@ -32,4 +32,4 @@ pip install telethon или pip3 install telethon
 
 Импорт
 
-from telethon import TelegramClient, events, sync
+from telethon import TelegramClient, events, sync, connection
