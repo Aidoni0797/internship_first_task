@@ -150,4 +150,6 @@ with webdriver.Chrome() as browser:
 поймите разницу, измените часть заголовка чтобы лучше понять разницу.
 
 from selenium import webdriver
-from 
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
+
