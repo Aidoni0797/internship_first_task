@@ -46,4 +46,18 @@ from telethon import TelegramClient, events, sync, connection
 from telethon import TelegramClient, events, sync, connection
 
 api_id = 12345 #Тут укажите полученный ранее api
-api_hash = '0123456789abcdef0123456789abcdef'
+api_hash = '0123456789abcdef0123456789abcdef' # Тут укажите полученный ранее hash
+
+client = TelegramClient('session_name', api_id, api_hash)
+client.start()
+print(client.get_me())
+client.disconnect()
+
+>>>
+
+Когда вы введете номер. Telegram пришлет вам токен авторизации. Вставьте его в консоль и выполните этот
+код снова. В ответ вы получите кортеж с данными о вашей учетной записи Telegram. Если вы получили эти,
+данные, то поздравляю, у вас все получилось.
+
+Давайте детально рассмотрим, что здесь написано. Переменная api_id = 12345 хранит ваш персональный ID,
+который вы создали на предыдущем шаге. Переменная api_hash = '0123456789abcdef0123456789abcdes'
