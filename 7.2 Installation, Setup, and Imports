@@ -33,3 +33,17 @@ pip install telethon или pip3 install telethon
 Импорт
 
 from telethon import TelegramClient, events, sync, connection
+
+
+Первый запуск
+
+После установки  и импорта можно запустить свой первый код. Запустите этот куда у себя в терминале и введите номер
+телефона, который вы вводили на первом этапе.
+
+Двухфакторная аутентификация не позволит вам авторизоваться, поэтому, перед первым запуском ее
+необходимо отключить.
+
+from telethon import TelegramClient, events, sync, connection
+
+api_id = 12345 #Тут укажите полученный ранее api
+api_hash = '0123456789abcdef0123456789abcdef'
