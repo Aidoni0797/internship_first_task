@@ -103,4 +103,10 @@ WebDriverWait(browser, poll_frequency=0.5, timeout=10) - пингует элем
 10. invisibility_of_element_located(locator) - ожидание проверки того, что элемент либо невидим, либо
 отсутствует в DOM.
 
-11. staleness_of(locator) - ожидает пока элемент больше не будет прикреплен к 
+11. staleness_of(locator) - ожидает пока элемент больше не будет прикреплен к DOM дереву. Возвращает
+False, если элемент все еще прикреплен к DOM, в противном случае - true;
+
+12. element_to_be_selected(locator) - ожидание проверки выбора элемента. Эта операция имеет смысл только
+для элементов ввода состояний Checkbox and RadioButton;
+
+13. element_located_to_be_selected(locator) - ожидание 
