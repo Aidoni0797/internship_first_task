@@ -151,4 +151,7 @@ by SendCodeRequest)
 - client.get_me(entity) - получает "О себе", текущего пользователя, вошедшего в систему;
 - client.is_bot(entity) - возврат True, если вошедший пользователь является ботом, False в противном случае;
 - client.is_user_authorized(entity) - возвращает True, если пользователь авторизован (вошел в систему);
-- client.get_entity(entity) - превращает  данный объект в допустимого пользо
+- client.get_entity(entity) - превращает  данный объект в допустимого пользователя(entity)
+Telegram чат или канал;
+- client.get_input_entity(entity) - превращает данный объект в версию входного объекта;
+- client.get_peer_id(entity) - получает идентификатор для данной сущности.
