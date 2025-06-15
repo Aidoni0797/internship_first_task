@@ -114,4 +114,33 @@ by SendCodeRequest)
 - client.send_message(entity) - отправляет сообщение указанному пользователю, чату или каналу;
 - client.edit_message(entity) - редактирует данное сообщение, чтобы изменить его текст или медиа;
 - client.delete_messages(entity) - удаляет указанные сообщения, опционально "для всех";
-- client.forward_mess
+- client.forward_messages(entity) - пересылает данные сообщения указанному объекту;
+- client.iter_messages(entity) - итератор по сообщениям для данного чата;
+- client.get_messages(entity) - то же, что и iter_messages(), но вместо этого возвращает TotalList;
+- client.pin_message(entity) - закрепляет сообщение в чате;
+- client.unpin_message(entity) - открепляет сообщение в чате;
+- client.send_read_acknowledge(entity) - отмечает сообщения как прочитанные и при необходимости 
+удаляет упоминания.
+
+Загрузки
+
+- client.send_file(entity) - отправляет сообщение с данным файлом указанному объекту;
+- client.upload_file(entity) - загружает файл на серверы Telegram, не отправляя его.
+
+Скачивания
+
+- client.download_media(entity) - загружает указанный носитель из объекта сообщения;
+- client.download_profile_photo(entity) - загружает фото профиля  данного пользователя, чата 
+или канала;
+- client.download_file(entity) - низкоуровненый метод загрузки файлов из их исходного местоположения;
+- client.iter_download(entity) - итерирует загрузку файла, получая фрагменты файла.
+
+Диалоги
+
+- client.iter_dialogs(entity) - итератор над диалогами (открытые разговоры/подписанные каналы);
+- client.get_dialogs(entity) - то же, что и iter_dialogs(), но вместо этого возвращает TotalList;
+- client.edit_folder(entity) - редактирует папку, используемую одним или несколькими диалоговыми
+окнами для их архивирования;
+- client.iter_drafts(entity) - итератор над черновиками сообщений;
+- client.get_drafts(entity) - то же, что и iter_drafts(), но вместо этого возвращает список;
+- 
