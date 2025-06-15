@@ -143,4 +143,9 @@ by SendCodeRequest)
 окнами для их архивирования;
 - client.iter_drafts(entity) - итератор над черновиками сообщений;
 - client.get_drafts(entity) - то же, что и iter_drafts(), но вместо этого возвращает список;
-- 
+- client.delete_dialog(entity) - удаляет диалог (покидает чат или канал);
+- client.conversation(entity) - создает объект Conversation с заданным объектом.
+
+Пользователи
+
+- client.get_me(entity) - получает "О себе", текущего пользователя, вошедшего в систему;
