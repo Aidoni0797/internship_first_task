@@ -149,3 +149,5 @@ by SendCodeRequest)
 Пользователи
 
 - client.get_me(entity) - получает "О себе", текущего пользователя, вошедшего в систему;
+- client.is_bot(entity) - возврат True, если вошедший пользователь является ботом, False в противном случае;
+- client.is_user_authorized(entity) - True
