@@ -92,4 +92,26 @@ by SendCodeRequest)
 
 Авторизация
 
-- client.start(entity) - запускает клиент (подключается и авторизуется при необходимости)
+- client.start(entity) - запускает клиент (подключается и авторизуется при необходимости), создаёт файл
+*.session;
+- client.send_code_request(entity) - отправляет код Telegram, необходимый для входа на указанный номер телефона;
+- client.sign_in(entity) - авторизуется в Telegram под существующей учетной записью пользователя или бота;
+- client.qr_login(entity) - инициирует процедуру входа в систему QR;
+- client.log_out(entity) - выходит из Telegram и удаляет текущий *.session - файл.
+
+База
+
+- client.connect(entity) - подключается к Телеграму;
+- client.disconnect(entity) - отключается от Телеграм;
+- client.is_connected(entity) - возвращает True, если пользователь подключился;
+- client.disconnected(entity) - свойство с а Future, которое разрешается при отключении;
+- client.loop(entity) - свойство с asyncio - циклом событий, используемым этим клиентом;
+- client.set_proxy(entity) - изменяет прокси, который будет использоваться при следующем 
+(повторном) подключении.
+
+Сообщения
+
+- client.send_message(entity) - отправляет сообщение указанному пользователю, чату или каналу;
+- client.edit_message(entity) - редактирует данное сообщение, чтобы изменить его текст или медиа;
+- client.delete_messages(entity) - удаляет указанные сообщения, опционально "для всех";
+- client.forward_mess
