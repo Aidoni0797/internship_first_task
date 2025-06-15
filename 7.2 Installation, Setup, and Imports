@@ -159,4 +159,10 @@ Telegram чат или канал;
 Чаты 
 
 - client.iter_participants(entity) - итератор по участникам, принадлежащим указанному чату;
-- client.get_paticipants(entity) - то же, что и iter_participants(), 
+- client.get_paticipants(entity) - то же, что и iter_participants(), но вместо этого возвращает
+TotalList;
+- client.kick_particioant(entity) - выкидывает пользователя из чата;
+- client.iter_admn_log(entity) - итератор над журналом администратора для указанного канала;
+- client.get_admin_log(entity) - то же, что и iter_admin_log() но вместо этого возвращает list;
+- client.iter_profile_photos(entity) - итератор по фотографиям профиля пользователя или фотографиям чата;
+- client.get_profile_photos(entity) - итератор по фотографиям
