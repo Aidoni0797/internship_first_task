@@ -155,3 +155,8 @@ by SendCodeRequest)
 Telegram чат или канал;
 - client.get_input_entity(entity) - превращает данный объект в версию входного объекта;
 - client.get_peer_id(entity) - получает идентификатор для данной сущности.
+
+Чаты 
+
+- client.iter_participants(entity) - итератор по участникам, принадлежащим указанному чату;
+- client.get_paticipants(entity) - то же, что и iter_participants(), 
