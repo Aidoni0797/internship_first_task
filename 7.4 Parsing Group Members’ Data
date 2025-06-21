@@ -208,4 +208,34 @@ r_api = 1*************8
 r_hash='b****************************b'
 
 with TelegramClient('my', r_api, r_hash) as client:
-  for x in client.iter_profile_photos('@William_Pice34')
+  for x in client.iter_profile_photos('@William_Pice34'):
+    client.download_media(x)
+
+Давайте теперь неного усложним нашу задачу и скачаем все фотки из профиля. Мы будем качать 
+абсолютно все фотки с профиля, у кого-то может быть одна аватарка, а у кого то их десять. 
+Telegram сохраняет все ваши прошлые аватарки, надеюсь, вы знакомы с этой его особенностью.
+
+Сразу хочу предупредить, что следующий код для новичка может быть сложным в понимании, я постараюсь
+объяснить максимально просто.
+Так же мы используем в этом коде метод  .download_media(), который принимает один обязательный
+аргумент, это объект для скачивания. Второй не обязательный аргумент file='img/', в этом аргументе мы
+можем передать путь к папке, куда мы хотим сохранять наши файлы, так же можем указать расширение для
+сохраняемого файла. .download_media(object, file='img/').
+
+from telethon import TelegramClient, events, sync, connection
+
+r_api = 1********8
+r_hash = 'b4***********************b'
+
+with TelegramClient('my', r_api, r_hash) as client:
+  all_user_group = client.get_participants('t.me/Parsinger_Telethon_Test')
+  for user in all_user_group:
+    for iter_photo in client.iter_profile_photos(user):
+      client.download_media(iter_photo, file='img/')
+
+Давайте разбираться, что же тут написано.
+
+1. В переменную all_user_group записали список из участников нашей учебной группы Parsinger_Telethon_Test;
+2. В цикле for/in итерируемся по списку участников группы;
+3. Во вложенном цикле for/in мы итерируемся по всем фото указанного пользователя в методе
+.iter_profile_photos(user), где
