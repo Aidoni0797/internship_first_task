@@ -170,3 +170,6 @@ r_api = 1********8
 r_hash = 'b****************************b'
 
 with TelegramClient('my', r_api, r_hash) as client:
+  participants = client.get_participants('t.me/Parsinger_Telethon_Test')
+  for i, user in enumerate(participants):
+    client.download_profile_photo(user,f'{i}') #f'img/{i}' 
