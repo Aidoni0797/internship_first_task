@@ -349,7 +349,7 @@ about='Описание профиля',
 profile_photo = Photo(
   id=9***************5,
   access_hash=5*********48,
-  f
+  file_reference=b'\x00b\xa4\xea\xf3w&ji\xd0l\xf4\x10\xdc+\xfe\\<'x1d\xbe',
 )
 )
 
