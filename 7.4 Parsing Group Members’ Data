@@ -162,4 +162,11 @@ with TelegramClien('my', r_api, r_hash) as client:
   client.download_profile_photo('Pashikk', 'photo.png')
 
 Чтобы скачать фото сразу всех участников группы, необходимо сперва получиьт всех, кто состоит в группе,
-затем в цикле получать доступ
+затем в цикле получать доступ к профилю и применять метод .download_profile_photo('user', 'name_photo')
+
+from telethon import TelegramClient, events, sync, connection
+
+r_api = 1********8
+r_hash = 'b****************************b'
+
+with TelegramClient('my', r_api, r_hash) as client:
