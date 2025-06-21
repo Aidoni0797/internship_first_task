@@ -16,4 +16,13 @@ Telethon. Первый метод - это .get_messages(), который во�
 
 Выполним код ниже и посмотрим на возвращаемый методом .get_messages() объект, и разберем его подробнее.
 
-from telethon import TelegramClient,
+from telethon import TelegramClient, events, sync, connection
+
+r_api=1**********8
+r_hash='b******************************b'
+
+with TelegramClient('my', r_api, r_hash) as client:
+  all_message = client.get_messages('https://t.me/Parsinger_Telethon_Test')
+  for message in all_message:
+    print(message)
+
