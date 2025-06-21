@@ -15,4 +15,18 @@
 from telethon import TelegramClient, events, sync, connection
 
 r_api = 1*****8 #данные скрыты в целях безопасности
-r_hash = 'b'
+r_hash = 'b******4****0b0****9****8**b' #данные скрыты в целях безопасности
+
+client = TelegramClient('session_name2', r_api, r_hash)
+client.start()
+print(client.get_me())
+
+User(
+  id = 332703068 - id пользователя;
+  is_self = True - возвращает True, если запрос был отправлен "О себе", возвращает False в противоположном случае;
+  contact = True - возвращает True, если пользователь есть в вашем списке контактов, возвращает False 
+в противоположном случае;
+  matual_contact - True - возвращает True, если пользователи взаимно подписаны друг на друге 
+(есть у друг друга в контактах),
+
+)
