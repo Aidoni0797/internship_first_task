@@ -12,4 +12,7 @@
 
 Выполнение код у себя в терминале
 
-from telethon
+from telethon import TelegramClient, events, sync, connection
+
+r_api = 1*****8 #данные скрыты в целях безопасности
+r_hash = 'b'
