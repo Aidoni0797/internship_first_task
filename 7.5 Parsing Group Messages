@@ -26,3 +26,9 @@ with TelegramClient('my', r_api, r_hash) as client:
   for message in all_message:
     print(message)
 
+>>>Message(id=200, peer_id=PeerChannel(channel_id=1795821154), date=datetime.datetime(2022,6,11,9,40,26,
+tzinfo=datetime, timezone.utc), message='56405643545063445516345054346351', out=False, mentioned=False,
+media_unread=False,silent=False,post=False,from_scheduled=False,legacy=False, edit_hide=False,
+pinned=False, from_id=PeerUser(user_id=5125814085), fwd_from=None, via_bot_id=None, reply_to=None,
+media=None, reply_marlup=None, entities=[], views=None, forwards=None, replies=MessageReplies(replies=0,
+replies_pts=213))
