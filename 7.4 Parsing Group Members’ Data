@@ -172,4 +172,18 @@ r_hash = 'b****************************b'
 with TelegramClient('my', r_api, r_hash) as client:
   participants = client.get_participants('t.me/Parsinger_Telethon_Test')
   for i, user in enumerate(participants):
-    client.download_profile_photo(user,f'{i}') #f'img/{i}' 
+    client.download_profile_photo(user,f'{i}') #f'img/{i}' используйте для указания пути сохранения файлов
+
+В коде выше мы применили уже знакомый вам метод client.get_participants('t.me/Parsinger_Telethon_Test'),
+который возвращает список всех пользователе. Пс\осле этого в цикле применяем метод 
+.download_profile_photo('user', 'name_photo') чтобы, скачать поочерёдно фото с каждого профиля. Так
+же применили встроенную функцию enumerate() для именования скачанных файлов.
+
+По умолчанию метод .download_profile_photo() имеет параметр download_big= положение которого влияет
+на то, какое фото будет скачано, большое или маленькое download_big=True - скачает
+полноразмерное фото, а download_big = False скачает миниатюру фото профиля.
+
+- client.download_profile_photo(user, f'img/{i}', download_big=True) - скачать полноразмерное фото
+профиля;
+
+- client.download_profile_photo(user, f'img/{i}', download_big=False) - скачать миниатюру фото профиля
