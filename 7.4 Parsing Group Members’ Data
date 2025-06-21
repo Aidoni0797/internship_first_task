@@ -249,4 +249,66 @@ with TelegramClient('my', r_api, r_hash) as client:
 скриншоте ниже. Вт именно его мы и будем учится парсить в следующих степах.
 
 В прошлых уроках для получения информации о пользователе мы использовали метод .get_participants(),
-который возвращает TotalList 
+который возвращает TotalList со всеми участниками группы. У этого метода есть один серьезный недостаток
+он не работает в группах с числом участников больше 4000. Поэтому нам необходим другой метод, а именно
+.iter_participants(channel), который принимает в аргументы ссылку на группу.
+
+Метод .iter_participants(channel) итерирует по участникам группы, сразу отдавая результат, поэтому это
+то, что нам нужно. Текже следует отметить, что метод .get_me(), который возвращает информацию о
+пользователе, не имеет поля about, в котором хранится инфмаорция "О себе". Чтобы получить доступ к этому
+полю, нам потребуетс импортировать еще один модуль, который работает с пользовательским профилем и
+имеет больше полей для работы с ними.
+
+Импортируем:
+
+from telethon.tl.functions.users import GetFullUserRequest
+
+Синтаксис использования: client(GetFullUserRequest(user)), где user - это ссылка на профиль пользователя.
+
+Код ниже выполняет итерацию по всем участникам группы Parsinger_Telethon_Test и собирает информацию
+хранящуюся в поле "О себе", с помощью атрибута about класса TelegramClient.
+
+from telethon import TelegramClient, events, sync, connection
+from telethon.tl.functions.users import GetFullUserRequest
+
+r_api = 1********8 #данные скрыты в целях безопасности
+r_hash = 'b*********4********0b0******9**8**b' #данные скрыты в целях безопасности
+
+with TelegramClient('my', r_api, r_hash) as client:
+  users = client.iter_participants('Parsinger_Telethon_Test')
+  for user in users:
+    user_full_about = client(GetFullUserRequest(user))
+    print(user_full_about.about)
+
+Давайте посмотрим на все поля атрибутов возвращаемого объекта у класса GetFullUserRequests(). Обратите
+внимание, что возвращаемый объект похож на объект из первого степа, только там он назывался User(), 
+а тут название UserFull(), это нам красноречиво намекает на то, что UserFull() обладает расширенным
+количеством полей. Чтоб не повторяться, я выделил лишь те, которые отличаются от объекта User(). Для
+парсинга нам почти всегда нужно всего одно поле, about, с остальными вы можете познакомится самостоятельно.
+
+UserFull(
+  user=User(
+    id = 2**************2,
+    is_self=True,
+    contact=True,
+    mutual_contact=True,
+    deleted=False,
+    bot=False,  
+    bot_chat_history=False,
+    bot_nochats=False,
+    verified=False,
+    retricted=False,
+    min=False,
+    bot_inline_geo=False,
+    support=False,
+    scam=False,
+    apply_min_photo=True,
+    fake=False,
+    access_hash=32****************2,
+    first_name='Павел',
+    last_name = 'Хошев',
+    username = 'Pushikk',
+    phone=+7***5**5*0*.
+  )
+
+)
