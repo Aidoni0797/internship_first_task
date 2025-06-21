@@ -207,4 +207,5 @@ from telethon import Telegramclient, events, sync, connection
 r_api = 1*************8
 r_hash='b****************************b'
 
-with Tele
+with TelegramClient('my', r_api, r_hash) as client:
+  for x in client.iter_profile_photos('@William_Pice34')
