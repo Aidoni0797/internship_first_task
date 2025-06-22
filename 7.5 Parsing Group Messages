@@ -194,4 +194,22 @@ from_id=PeerUser(user_id=5423813689), fwd_from=None, via_bot_id=None, reply_to=N
 media=MessageMediaPhoto(photo=Photo(id=5845830650752514229, access_hash=802838475124788912,
 file_reference=b'\x02k\n\x0eb\x00\x00\x00\xc6xb\xa9\xc5\x1f\xa5\xe63\xde>\xe9:0\xf26\x11m\xe1C\
 x10\xa3', date=datetime.datetime(2022,6,10,17,32,24,tzinfo=datetime.timezone.utc), sizes=
-[PhotoStrippedSize(type='i',)])))]
+[PhotoStrippedSize(type='i',
+bytes=b'\x01\'(\xae\xb7\x93\x0e\xbb0\xd4T\xab|\x0f\xdf\x8b\xf2\xa8|\xa3\xe9M\x0b\xb2E-\xd34\xf5\
+x02\xdf\x9dj\xff\x00{\x8f\xa8\xa0$\x19\xccsm>\xc6\xaa0\xdc\xfe\xbe\xf4\x9eY$\nw\x0b\x1a;g\x0b\x90\xca\
+xe3\)])))]
+
+Код ниже найдет и скачает столько сообщений с картинками, сколько указано в аргументе limit=, запустите
+у себя в терминале код ниже и посмотрите как он работает.
+
+from telethon import TelegramClient, events, sync, connection
+from telethon.tl.types import InputMessagesFilterPhotos
+
+r_api = 1*********8
+r_hash = 'b***********************b'
+
+with TelegramClient('my', r_apim r_hash) as client:
+  all_message = client.get_messages('https://t.me.python_parsing', filter=InoutMessagesFilterPhotos,
+limit=100)
+  for message in all+message:
+    client.download_media(message) #file='img/' чтобы указать путь для скачивания.
