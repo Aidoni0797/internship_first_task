@@ -7,3 +7,7 @@ https://docs.google.com/document/d/12nS2Afs1JlUH8hU-w9EkfkOlsiHvpGYi82d0dzDgKxg/
 
 
 https://parsinger.ru/html/index1_page_1.html
+
+
+iDONi это важная ссылка для тебя вообще не потеряй 
+https://my.telegram.org/apps
