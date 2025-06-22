@@ -156,4 +156,7 @@ InputMessagesFilterPhotos);
 это работает если пользователь был забанен в группе, а его сообщения не удалены;
 - filter=InputMessageFilterGeo - вернет первое сообщение, в котром есть геометка;
 - filter=InputMessagesFilterGif - вернет первое сообщение, в котором содержится GIF;
-- filter=InputMessagesFilterMusic - вернет первое сообщение,
+- filter=InputMessagesFilterMusic - вернет первое сообщение, если в нём содержится музыкальный файл;
+- filter=InputMessagesFilterMyMentions - вернет первое сообщение, в котором есть упоминания учетной
+записи, с которой происходит поиск;
+- filter=
