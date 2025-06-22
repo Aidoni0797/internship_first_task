@@ -152,3 +152,8 @@ InputMessagesFilterPhotos);
 - filter=InputMessagesFilterChatPhotos - вернет первое сообщение, содержащее фото;
 - filter=InputMessagesFilterContacts - вернет первое сообщение, содержащее контакт пользователя;
 - filter=InputMessagesFilterDocument - вернет первое сообщение, содержащее документ (pdf, docx, txt and etc.)
+- filter=InputMessageFilterEmpty - вернет первое сообщение, если его отправитель пуст, скорее всего 
+это работает если пользователь был забанен в группе, а его сообщения не удалены;
+- filter=InputMessageFilterGeo - вернет первое сообщение, в котром есть геометка;
+- filter=InputMessagesFilterGif - вернет первое сообщение, в котором содержится GIF;
+- filter=InputMessagesFilterMusic - вернет первое сообщение,
