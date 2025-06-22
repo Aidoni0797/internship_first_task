@@ -12,4 +12,15 @@
 
 Код ниже отправит сообщение 'test' пользователю @Anthony_Alexander534. Сообщение подобным образом
 можно отправить не только конкретному пользователю, но и чату\группе, если учетная запись, с которой
-вы отправляете сообщение, подписана
+вы отправляете сообщение, подписана на этот чат\группу.
+
+from telethon import TelegramClient, events, sync, connection
+
+r_api=1*********8
+r_hash = 'b****************b'
+
+with TelegramClient('my', r_api, r_hash) as client:
+  client.send_message('@Anthony_Alexander534', 'test')
+
+
+Метод .send_message()
