@@ -159,4 +159,33 @@ InputMessagesFilterPhotos);
 - filter=InputMessagesFilterMusic - вернет первое сообщение, если в нём содержится музыкальный файл;
 - filter=InputMessagesFilterMyMentions - вернет первое сообщение, в котором есть упоминания учетной
 записи, с которой происходит поиск;
-- filter=
+- filter=InputMessagesFilterPhoneCalls - вернет информацию об аудио-звонке;
+- filter=InputMessagesFilterPhotoVideo - вернет информацию об видео-звонке;
+- filter=InputMessagesFilterPhotos - вернет информацию о изменении аватарки группы/чата, если это
+сообщение не было удалено админом;
+- filter = InputMessagesFilterPinned - вернет первое закреплённое сообщение;
+- filter = InputMessagesFilterRoundVideo - вернет первое сообщение, в котором содержится круглое видео;
+- filter = InputMessagerFilterRoundVoice - вернет первое сообщение, в котором содержится голосовое
+сообщение;
+- filter = InputMessagesFilterUrl - вернет первое сообщение, в котором содержится ссылка;
+- filter = InputMessagesFilterVideo - вернет первое сообщение, в котором содержится видео;
+- filter = InputMessagesFilterVoice - вернет первое сообщение, в котором содержится
+голосовое сообщение
+
+Больше методов в документации (https://docs.telethon.dev/en/stable/modules/client.html#telethon.client.messages.MessageMethods.iter_messages)
+
+Код ниже найдет первое сообщение, содержащее фотографию, и вернет объект этого сообщения.
+
+from telethon import TelegramClient, events, sync, connection
+from telethon.tl.types import InputMessagesFilterPhotos
+
+r_api=1*********8
+r_hash='b*****************b'
+
+with TelegramClient('my', r_api, r_hash) as client:
+  all_message = cliengt.get_messages('https://t.me/Parsinger_Telethon_Test',
+filter=InputMessagesFilterPhotos)
+  print(all_messsages)
+
+>>> [Message(id=198, peer_id=PeerChannel(cjannel_id=1795821154), date=datetime.datetime(2022,6,10,17,
+32,24, tzinfo=datetime.timezone.utc), messages='', out=False, mentioned=False, media_unread=Fallse, silent=False,post=)]
