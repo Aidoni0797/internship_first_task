@@ -94,4 +94,24 @@ media - используется для определения, присутст
 
 Обратите внимание на один важный момент. В объекте Message, хранится user_id в цифровом формате, а нам
 чаще всего необходимо знать его username, если он у него имеется. Чтобы консертировать user_id в username
-используется метод .get_entity(ID)
+используется метод .get_entity(ID). Функция .get_entity(ID) возвращает объект User со всеми соответствующими
+этому объекту полями.
+
+Выполнение функции .get_entity(ID) вернет объект, у которого имеются все необходимые поля, нам осталось
+извлечь из них username.
+
+Код ниже, получает первое сообщение в чате, извлекает из него user_id(message.from_id.user_id) и передает
+его в функцию .get_entity(ID) которая возвращает объект User, и уже у этого объекта мы извлекаем username.
+
+from telethon import TelegramClient, events
+
+r_api=1*****8
+r_hasg='b************b'
+
+with TelegramClient('my', r_api, r_hash) as client:
+  all_message = client.get_messages('https://t.me/Parsinger_Telethon_Test')
+  for message in all_message:
+    id_user = message.from_id.user_id
+    print(client.get_entity(id_user).username)
+
+>>>daxton_13246
