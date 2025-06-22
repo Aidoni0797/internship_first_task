@@ -115,3 +115,40 @@ with TelegramClient('my', r_api, r_hash) as client:
     print(client.get_entity(id_user).username)
 
 >>>daxton_13246
+
+Функции .iter_messages() and .get_messages()
+
+Как уже говорилось в прошлом степе, оба эти метода помогают извлекать сообщения из чатов, но делают они
+это по-разному. В этом степе я бы хотел детальнее обсудить каждый из них, ведь с этими методами вы будете
+работать часто.
+
+.get_messages() and .iter_messages() принимают одинаковые аргументы:
+
+client.get_messages(chat\group\dialog) - первый обязательный аргумент, ссылка на телеграмм
+чат\паблик\диалог;
+client.get_messages(limit) - количество сообщений, которые необходимо собрать из группы\паблика\диалога,
+если limit не установлен, будет получено первое сообщение в чате;
+client.get_massages(offset_date=datetime(2022,6,1)) -- принимает объект datatime находит все
+сообщения ранее указанной даты, формат даты (год, месяц, день);
+client.get_messages(offset_id(id_message)) - будут извлечены те сообщения, которые предшествуют 
+сообщению с указанным id_message;
+client.get_messages(max_id=30) - будут исключены те сообщения, которые имеют более высокий 
+идентификатор;
+client.get_messages(min_id=30) - будут исключены те сообщения, которые имеют более старым 
+идентификатором;
+client.get_messages(search='Искомый текст') - строка, которая будет использоваться в качестве
+поискового запроса;
+client.get_messages(from_user="@user") - будут возвращены сообщения только этого пользователя. Имя
+можно указать как username, id_user, last_name, first_name;
+client.get_message(reverse=True) - Если установлено значение True, сообщения будут возвращаться в 
+обратном порядке (от самого старого к самому новому, а не от нового к самому старому). Это также
+означает, что значения параметров offset_id and offset_date меняются местами;
+client.get_messages(filter=InputMessagesFilterPhotos) - фильтр используется для возврата сообщения.
+Например, данный фильтр вернет первое сообщение содержащее фото. Для работы с подобными фильтрами
+необходимо их импортировать from telethon.tl.types import InputMessagesFilterPhotos.
+Другие используемые фильтры (у каждого фильтра в списке, свой одноим(нный импорт, по аналогии с
+InputMessagesFilterPhotos);
+
+- filter=InputMessagesFilterChatPhotos - вернет первое сообщение, содержащее фото;
+- filter=InputMessagesFilterContacts - вернет первое сообщение, содержащее контакт пользователя;
+- filter=InputMessagesFilterDocument - вернет первое сообщение, содержащее документ (pdf, docx, txt and etc.)
