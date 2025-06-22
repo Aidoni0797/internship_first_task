@@ -189,4 +189,5 @@ filter=InputMessagesFilterPhotos)
 
 >>> [Message(id=198, peer_id=PeerChannel(cjannel_id=1795821154), date=datetime.datetime(2022,6,10,17,
 32,24, tzinfo=datetime.timezone.utc), messages='', out=False, mentioned=False, media_unread=Fallse, 
-silent=False,post=False, from_schedule=False, legacy=False, edit_hide=False, pinned=False,)]
+silent=False,post=False, from_schedule=False, legacy=False, edit_hide=False, pinned=False,
+from_id=PeerUser(user_id=5423813689), fwd_from=None, via_bot_id=None, reply_to=None,)]
