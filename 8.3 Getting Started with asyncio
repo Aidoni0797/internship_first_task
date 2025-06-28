@@ -60,3 +60,17 @@ Asyncio начало
 Если у вас не запускается код ниже, то удалите следующую строку.
 
 asyncio.set_event_loop_policy(asyncio.WindowsSelector)
+
+import asyncio
+import aiohttp
+from codetiming impoty Timer
+
+urls = [
+"http://google.com",
+"http://yahoo.com",
+"http://apple.com",
+"http://microsoft.com",
+"https://habr.com",
+"https://www.youtube.com/",
+"https://"
+]
