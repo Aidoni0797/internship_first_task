@@ -11,3 +11,6 @@ https://parsinger.ru/html/index1_page_1.html
 
 iDONi это важная ссылка для тебя вообще не потеряй 
 https://my.telegram.org/apps
+
+
+https://habr.com/ru/articles/892954/ - для чтения
