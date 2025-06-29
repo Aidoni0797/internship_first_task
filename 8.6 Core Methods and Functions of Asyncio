@@ -66,3 +66,7 @@ end!
 DeclarationWarning: There is no current event loop loop = asyncio.get_event_loop()
 
 #iDONi этого событие в твоей жизне получилось
+
+Функция sleep() #iDONi ты просто обязана это понимать потому что ты любишь sleep жизненно
+
+await asyncio.sleep()
