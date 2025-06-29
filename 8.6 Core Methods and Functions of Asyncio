@@ -14,3 +14,21 @@
 другому awaitable-объекту, а именно сопрограмме two(), которая напечатает нам слово world, после
 этого снова вернет управление в сопрограмму one(), в которой остался последний шаг - напечатать слово 
 end! После выполнения всех шагов run() закроет цикл событий до следующего запуска кода.
+
+import asyncio
+
+async def two():
+  print('world')
+
+async def one():
+  print('hello')
+  await asyncio.sleep(1)
+  await two()
+  print('end!')
+
+asyncio.run(one())
+
+#Результат
+  hello  
+  world
+  end!
