@@ -122,4 +122,24 @@ asyncio.run(main())
 Теперь добавим в эти сопрограммы элемент случайности, а именно встроенную сопрограмму
 asyncio.sleep(), она помогает сопрограмме рандомно заснуть на период от одной секунды до пяти секунд,
 тем самым имитируя работу. При запуске этого кода несколько раз, результат будет зависеть от того,
-какая сопрограмма спит дольше. Пока одна сопро
+какая сопрограмма спит дольше. Пока одна сопрограмма спит, управление передается другой, об этом 
+говорит оператор await.
+
+import asyncio
+import random
+
+async def two(x):
+  await asyncio.sleep(random.randint(1,6))
+  return print(x)
+
+async def one(x):
+  await asyncio.sleep(random.randint(1,6))
+  return print(x)
+
+async def main():
+  task1 = asyncio.create_task(one(1))
+  task2 = asyncio.create_task(two(2))
+  await task1
+  await task2
+
+asyncio.run(main())
