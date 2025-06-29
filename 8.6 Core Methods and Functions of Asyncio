@@ -59,3 +59,10 @@ loop.run_until_complete(one())
 hello
 world
 end!
+
+Результат будет точно такой же, только вы получите предупреждение об устаревании, возможно, однажды
+старый вариант перестанет работать СОВСЕМ.
+
+DeclarationWarning: There is no current event loop loop = asyncio.get_event_loop()
+
+#iDONi этого событие в твоей жизне получилось
