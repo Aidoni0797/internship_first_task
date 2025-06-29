@@ -14,3 +14,5 @@ async def main():
   task2 = asyncio.create_task(two(2))
   await task1
   await task2
+
+asyncio.run(main())
