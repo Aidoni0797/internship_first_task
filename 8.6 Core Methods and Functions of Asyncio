@@ -69,4 +69,20 @@ DeclarationWarning: There is no current event loop loop = asyncio.get_event_loop
 
 Функция sleep() #iDONi ты просто обязана это понимать потому что ты любишь sleep жизненно
 
-await asyncio.sleep()
+await asyncio.sleep(3) - в модуле asyncio есть своя асинхронная слип, она выполняет то же самое, что и ее
+синхронная "сестра", за одним исключением: асинхронная версия sleep() умеет передавать управление,
+когда она усыпляет сопрограмму.
+
+Код ниже напечатает Hello world через пять секунд сна. Перед сопрограммой sleep() всегда ставится
+оператор await, т.к. все сопрограммы являются awaitable-объектами, которые передают управление, когда
+встречают оператор await.
+
+#Псевдокод который демонстрирует использование асинхронной сопрограммы sleep()
+
+import asyncio
+
+async def sleep():
+  await asyncio.sleep(5)
+  print('Hello world')
+
+asyncio.run(sleep())
