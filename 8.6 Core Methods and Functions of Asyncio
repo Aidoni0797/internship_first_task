@@ -52,4 +52,10 @@ async def one():
   await two()
   print('end!')
 
-loop
+loop = asyncio.get_event_loop()
+loop.run_until_complete(one())
+
+#Результат
+hello
+world
+end!
