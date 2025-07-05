@@ -94,3 +94,37 @@ xdB\xbfd\x6B\x01\x88\xd1\x81\xdB\xhB\xd1\x82\x61\x8c</title>
 
 6. await response.json() - возвращает результат в формате JSON, в том случае, если сервер готов нам его
 отдать.
+
+7. response.headers (без использования await) - возвращает заголовок страницы.
+
+8. response.cookies - возвращает объект <class 'http.cookies.SimpleCookie'>, т.к. у нас создается сессия,
+мы можем получить куки, которые были выданы сервером, для дальнейшего использования. С кукисами
+в этом формате можно работать как со словарем, используя методы .items(), .value(), .get() 
+и другие методы словарей.
+
+* Кукисы полученные этим способом имеют вид
+
+Set-Cookie: GPS=1; Domain=youtube.com; expires=Tue, 06-Sep-2022 10:50:55 GMT; HttpOnly; Path=/;
+Secure
+Set-Cookie: VISITOR-INFO01_LIVE=1v9mQ2FgdTM; Domain=youtube.com; expires=Sun, 05-Mar-2023 10:20:55
+GMT; HttpOnly; Path=/; SameSite=none; Secure
+Set-Cookie: YSC=UIIiWEGDShE; Domain=youtube.com; HttpOnly; Path=/; SameSite=none; Secure
+
+9. response.charset(без использования await) - возвращает текущую кодиовку данных ответа от сервера.
+
+10. response.reason(без использования await) - возвращает строковое значение "ОК" если статус код меньше
+400, вернёт NotFound если статус код больше 400, или оповестить другой ошибкой.
+
+11. response.host(без использования await) - вернёт имя домена, на примере кода выше ответ будет 
+parsinger.ru
+
+12. response.request_info(без использования await) вернёт информацию о запросе, на примере кода выше
+ответ будет
+
+* RequestInfo(url=URL('https://parsinger.ru/html/index1_page_1.html'), method='GET', headers=
+<CIMultiDictProxy('Host':'parsinger.ru', 'Accept':'*/*', 'Accept-Encoding': 'gzip, deflate',
+'User-Agent':'Python/3.10 aiohttp/3.8.1')>,
+real_url=URL('https://parsinger.ru/html/index1_page_1.html'))
+
+Эти были основные методы и функции для извлечения данных о зпаросе. Более подробно можно изучить в
+документации.
