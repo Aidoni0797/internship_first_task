@@ -38,4 +38,25 @@ Aiohttp
 
 asyncio.set_event_loop_policy(asyncio.WindowaSelectorEventLoopPolicy())
 
-import 
+import aiohttp
+import asyncio
+
+async def main():
+#---------------------start block 2---------------------
+
+async with aiohttp.ClientSession(trust_env=True) as session:
+  async with session.get('https://parsinger.ru/html/index1_page_1.html') as response:
+    print(await response.text())
+#-------------------end block 2-------------------
+
+#--------------------start block 1 ---------------------------
+asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+asyncio.run(main())
+#--------------------start block 1 --------------------------
+
+При выполнении этого когда происходит следующее. Интерпретатор, проходя по коду сверху вниз,
+инизиализирует нашу корутину async def main() в блоке №2, на этом этапе запуск еще не происходит. 
+Когда интерпретатор доходит до блока №1, он применяет политику, по правилам которой будет работать
+цикл событий, это происходит в первой строке первого блока, об этом мы говорили в разделе про
+event loop. Когда интерпретатор доходит до второй строки блоки №1, где мы передаем нашу корутину
+на выполнение в цикл событий asyncio.run(main()), именно в этот момент происходит ее выполнение.
