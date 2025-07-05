@@ -294,3 +294,7 @@ async def main():
   await asyncio.gather(group1, group2, group3)
 
 asyncio.run(main())
+
+Функция wait()
+
+Функция asyncio.wait(list_task) имеет схожий функционал с asyncio.gather(),
