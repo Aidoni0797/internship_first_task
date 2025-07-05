@@ -265,4 +265,26 @@ asyncio.run(main())
 запускать их одновременно. Это может пригодится для одновременного парсинга нескольких разных сайтов.
 Есть точка входа - сопрограмма main(), которая выполняет сбор всех сопрограмм и их запуск, и есть 
 сопрограммы one(), two(), three(), которые могут собирать данные с выбранных сайтов. Также стоит 
-помнить, что сопрограмму asyncio.gather() необхо
+помнить, что сопрограмму asyncio.gather() необходимо передавать распокаванное множество,
+распаковка происходит с помощью символа *.
+
+*Подмножеством подразумевается не конкретный тип данных set(), а понятие множества в целом, такие
+множества как list(), tuple(), set() и др.
+
+import asyncio
+import random
+
+async def one(x):
+  await asyncio.sleep(random.randint(1,3))
+  return print(x)
+
+async def two(x):
+  await asyncio.sleep(random.randint(1,3))
+  return print(x)
+
+async def three(x):
+  await asyncio.sleep(random.randint(1,3))
+  return print(x)
+
+async def main():
+  group1 = asyncio
