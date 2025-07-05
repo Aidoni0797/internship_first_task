@@ -1,0 +1,9 @@
+8.7 aiohttp
+
+Введение в aiohttp
+
+Установка: pip install aiohttp
+
+Импорт: import aiohttp
+
+Для асинхронных запросов к серверу нам не подойдет
