@@ -287,4 +287,10 @@ async def three(x):
   return print(x)
 
 async def main():
-  group1 = asyncio
+  group1 = asyncio.gather(*[one(i) for i in range(1,10)])
+  group2 = asyncio.gather(*[two(i) for i in range(1,10)])
+  group3 = asyncio.gather(*[three(i) for i in range(1,10)])
+
+  await asyncio.gather(group1, group2, group3)
+
+asyncio.run(main())
