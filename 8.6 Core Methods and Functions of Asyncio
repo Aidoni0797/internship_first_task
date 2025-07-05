@@ -328,3 +328,7 @@ async def main():
   lst_tasks = []
   for x in lst:
     task = asyncio.create_task(one(x))
+    lst_tasks.append(task)
+  await asyncio.wait(lst_tasks)
+
+asyncio.run(main())
