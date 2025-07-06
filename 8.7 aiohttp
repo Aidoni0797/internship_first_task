@@ -308,3 +308,84 @@ proxy = 'http://23.227.38.102:80'
 proxy_auth = aiohttp.BasicAuth('your_user', 'your_password')
 async with session.get(url, proxy=proxy, proxy_auth=proxy_auth) as response:
   return BeautifulSoup(await response.content, 'html.parser')
+
+
+Aiohttp работа с SOCKS
+
+В aiohhtp работа с SOCKS отличается от работы с простыми HTTP/HTTPS прокси, и в этом 
+степе мы подробно об этом поговорим.
+
+Для работы с SOCKS4 and SOCKS5 нам необходимо использовать класс ProxyConnector из модуля
+aiohttp_socks, для этого его нужно импортировать, заодно импортируем ProxyType и ChainProxyConnector,
+они немного сложнее в работе, и для написания парсера с множеством прокси они подходят 
+на совсем хорошо, но знать про них нужно.
+
+from aiohhtp_socks import ProxyType, ProxyConnector, ChainProxyConnector
+
+ProxyConnector
+
+ProxyConnector - это самый простой способ передать socks4 or socks5 в асинхронную 
+сессию, для этого нужно передать прокси как продемонстрировано в коде ниже.
+
+async def main(url):
+  connector = ProxyConnector.from_url('socks5://user:password@127.0.0.1:1080')
+
+  async with aiohttp.ClientSession(connector=connector, trust_env=True) as session:
+    async with session.get(url) as response:
+      return await response.text()
+
+Мы можем использовать конструктор и настроить параметры нашего прокси, такой вариант 
+удобен, если вы используете один прокси для ваших запросов. Как правилло, для написания 
+парсеров использовать конструктор не обязательно.
+
+connector = ProxyCOnnector(
+  proxy_type=ProxyType.SOCKS5,
+  host='127.0.0.1',
+  port=1080,
+  username='user',
+  password='password',
+  rdns=True
+)
+
+Самая распространенная ситуация - когда у вас есть список рабочих прокси, вы хотите
+поочередно передать каждый прокси в сессию, тем самым увеличивая время жизни вашего 
+парсера. Для этого нам понадобится код с прошлого степа, который мы немног изменили.
+
+Если у вас нет SOCKS, то вы можете воспользоваться моим измененным парсером, он собирает
+прокси с сайта https://hidemy.name/ru/proxy-list/, теперь он собирает только SOCKS4 and SOCKS5
+как всегда на этом сайте из 108 собранных SOCKS оказались рабочими 10 шт.
+
+Сам парсер лежит тут (https://github.com/nefelsay/stepik_parsing/blob/main/parse_proxy_socks.py)
+
+Для этого запуска этого кода вам потребуется файл proxy_list_SOCKS.txt, который создается
+после работы моего парсера. Если у вас есть свои SOCKS, то поместите их в этот файл.
+Обратите внимание, что мы передаем в сессию только connector=connector, в котором
+на каждой итерации цикла будет хранится новый SOCKS.
+
+Этот код создает на каждой итерации новую ClientSession(), в которую мы передаем параметры
+ProxyConnector, в котором на каждой итерации мы передаем новый прокси. Пересоздавать на каждой
+итерации новую сессию считается не очень хорошей идеей, но для небольших парсеров впоне сгодится.
+Сильная сторона такого подхода в том, что при плохом прокси в списке код продолжит работать
+со средующим, и так до тех пор, пока прокси не закончатся. Как делать повторные запросы
+через прокси, которые были забанены, мы поговорим в следующем разделе курса.
+
+import aiohttp
+import asyncio
+import aiofiles
+from aiohttp_socks import ProxyConnector
+
+async def main():
+  async with aiofiles.open('proxy_list_SOCKS.txt', mode='r') as f:
+    for prx in await f.readlines():
+      url='http://httpbin.org/ip'
+      connector = ProxyConnector.from_url(f'socks4://{prx}')
+      try:
+        async with aiohttp.ClientSession(connector=connector, timeout=.5) as session:
+          async with sesison.get(url=url, timeout=1) as response:
+            if response.status:
+              print(f'good proxy, status_code - {response.status} - ', prx, end='')
+      except Exception as _ex:
+        continue
+
+asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+asyncio.run(main())
