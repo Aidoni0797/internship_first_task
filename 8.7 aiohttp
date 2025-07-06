@@ -458,5 +458,20 @@ async def main():
   url = 'http://httpbin.org/ip'
   proxy = [
     'socks5://D2Frs6:75JjrW@194.28.210.39:9867',
-  
+    'socks5://D2Frs6:75JjrW@194.28.209.68:9925'
   ]
+  connector = ChainProxyConnector.from_urls(proxy)
+  try:
+    async with aiohttp.ClientSession(connector=connector, timeput=5, trust_env=True) as session:
+      async with session.get(url=url, timeout=1) as response:
+        if response.status:
+          print(f'good proxy, status_code - {response.status} - ', end='')
+        elif response.status >= 400:
+          print(f'bad proxy, status_code - {response.status} - ', end='')
+  except Exception as _ex:
+    print(_ex)
+
+asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+asyncio.run(main())
+
+Proxy
