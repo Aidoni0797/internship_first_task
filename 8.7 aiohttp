@@ -413,4 +413,32 @@ async with aiohttp.ClienSession(connector=connector) as session:
 
 У такого подхода есть одна очень важная особенность, которая портит нам всю малину.
 Вам нужно указывать схему, по которой работают ваши прокси socks4://, socks5:// или
-http:
+http://, socks4 не будут рабоать по схеме socks5. По этой причине нужно заранее
+знать, какие вы используете прокси. Для парсинга хорошо подходят socks4 и socks5.
+
+В этом коде мы открываем файл SOCKS5.txt, который содержит прокси вида.
+
+Читаем построчно прокси из файла, обрабатывая каждую и добавляя к ней схему, по
+которой она рабоатет, формируем список proxy для передачи в ChainProxyConnector.
+
+import aiohttp
+import asyncio
+import aiofiles
+from aiohttp_socks import ChaimnProxyConnector
+
+async def main():
+  url = 'https://httpbin.org/ip'
+  proxy=[]
+  async with aiofiles.open('SOCKS5.txt', mode='r') as socks4:
+    for s4 in await socks4.readlines():
+      proxy.append(f"socks5://{s4}')
+
+  connector = chainProxyConnector.from_urls(proxy)
+  async with aiohttp.ClientSession(connector=connector)as session:
+    async with session.get(url=url) as response:
+      if response.status:
+        print(f'good proxy, status_code - {response.status} - ', s4, end='\n')
+      elif response.status >=400:
+        print(f'bad proxy, status_code - {response.status} - ', s4, end='\n')
+
+asyncio.set_event_loop_policy(asyncio.Windwos)
