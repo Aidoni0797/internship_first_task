@@ -389,3 +389,10 @@ async def main():
 
 asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 asyncio.run(main())
+
+
+ChainProxyConnector
+
+ChainProxyConnector полезен тем, что мы можем использовать сразу большой список прокси.
+Ваш список прокси может быть любой длины и вы можете поместить его в память программы, 
+записав
