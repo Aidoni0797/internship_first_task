@@ -451,3 +451,12 @@ proxy = []. Такой код будет работать, если все пр�
 [Errno 11001] Could not connect to proxy 194.28.210.392:9867 [getaddrinfo failed]
 
 import aiohttp
+import asyncio
+from aiohttp_socks import ChainProxyConnector
+
+async def main():
+  url = 'http://httpbin.org/ip'
+  proxy = [
+    'socks5://D2Frs6:75JjrW@194.28.210.39:9867',
+  
+  ]
