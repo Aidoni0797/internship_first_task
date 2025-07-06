@@ -165,3 +165,49 @@ data, чтобы понять смысл передачи параметров.
 
 #такая ссылка будет сформирована с помощью словаря data
 http://httpbin.org/get?sessionKey=9ebbd0b25760557393a43064a92bae539d962103&format=xml&platformId=1
+
+Aiohttp работа с proxy
+
+Aiohttp поддерживает работу c HTTP и HTTPS, а вот с SOCKS для обстоят немного сложнее. В этом степе мы 
+рассмотрим работу со всеми видами прокси.
+
+Код ниже предемонстрирует ростое использование HTTP-прокси с применением basic authentiocation, которое
+используется на большинстве сайтов.
+
+import aiohttp
+import asyncio
+
+url = 'http://httpbin.org/ip'
+
+async def main():
+  proxy = 'http://127.0.0.1:80'
+  async with aiohttp.ClientSession(trust_env=True) as session:
+    proxy_auth = aiohttp.BasicAuth('user', 'pass')
+    async with session.get(url=url, proxy=proxy, proxy_auth=proxy_auth) as response:
+      print(await response.text())
+
+asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+asyncio.run(main())
+
+В коде выше добавилась одна новая строка proxy_auth = aiohttp.BasicAuth('user', 'pass'), которая
+управляет авторизацией к прокси-серверу. Также обратите внимание, что мы передаем прокси формата
+'http://127.0.0.1:80', аналогично тому, как мы писали в библиотеке requests.
+
+Если ваши прокси не требует авторизации по логину и паролю, достаточно убрать переменную proxy_auth.
+
+Код ниже выполнит запрос через прокси. Если у вас есть рабочий прокси, то можете запустить этот код с ним.
+Если рабочей прокси у вас нет, то качественные прокси продаются тут. (https://proxy6.net/ru/)
+
+import aiohttp
+import asyncio
+
+url = 'http://httpbin.org/ip'
+
+async def main():
+  proxy = 'http://127.0.0.1:80'
+  async with aiohttp.ClientSession() as session:
+    async with session.get(url=url, proxy=proxy) as response:
+      print(await response.text())
+
+asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+asyncio.run(main())
