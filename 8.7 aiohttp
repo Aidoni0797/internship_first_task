@@ -253,4 +253,36 @@ async def main():
       proxy = f'http://{prx}'
       url='http://httpbin.org/ip'
       try:
-      
+        async with aiohttp.ClientSession() as session:
+          async with session.get(url=url, proxy=proxy, timeout=1) as response:
+            if response.ok:
+              print(f"good proxy, sestus_code - {response.status} - ", prx, end='')
+            else:
+              print(f"bad proxy, status_code - {response.status} - ", prx, end='')
+      except Exception as _ex:
+        continue
+
+asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+asyncio.run(main())
+
+Результат:
+  good proxy, status_code - 200 - 91.226.97.77:80
+  bad proxy, status_code -409- 91.226.97.116:80
+  good proxy, status_code -200- 203.28.9.92:80
+  bad proxy, status_code -409- 203.24.108.64:80
+  ...
+  bad proxy, status_code -409- 185.238.228.238:80
+  bad proxy, status_code -403- 172.67.165.107:80
+  good proxy, status_code -200- 203.24.109.182:80
+  bad proxy, status_code -409- 45.12.31.95:80
+
+Про aiofiles мы будем говорить в следующем разделе курса.
+
+Если коротко, то этот код пингует сайт https://httpbin.org/ip через предоставленные нами
+прокси и делает это в асинхронном стиле. Такой код будет работать быстрее синхронного. 
+В этом коде установлен timeout=1, в это значит, что синхронный код ждал бы одну секунду, 
+после чего возвращал бы ответ. В нашем списке имеется -9200 тш прокси, итого, мы
+потратим 9200/60 = 153 минуты на проверку всех прокси. В асинхронном стиле проверка всех
+прокси заняла - 3500 сек, что почти в 2.6 раза быстрее. Ключевая разница двух подходов в том,
+что синхорнный код бездействует, пока ждет ответа от сервера, т.е. 60% времени ваш синхронный код
+ничего не делает.
