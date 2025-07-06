@@ -474,4 +474,41 @@ async def main():
 asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 asyncio.run(main())
 
-Proxy
+ProxyType
+
+ProxyType - используется для указания типа прокси, что в практике используется редко,
+т.к. ChainProxyConnector проще  удобнее в использовании.
+
+connector = ProxyConnector(
+proxy_type = ProxyType.SOCKS5,
+host='127.0.0.1',
+port = 1080,
+username='user',
+password='password',
+rdns = True
+)
+async with aiohttp.ClientSession(connector=connector) as session:
+  async with session.get(url) as response:
+    return await response.text()
+
+Код ниже выполняет ту же самую задачу, что и код выше, только теперь у нас есть специальные
+поля для параметров прокси. В ProxyType появилось поле rdns(Reverse DNS), подробнее про
+него можно почитать на wiki (https://en.wikipedia.org/wiki/Reverse_DNS_lookup),
+на практике мне никогда не приходилось работать с этим параметром. Ради эксперимента
+я проверил, купленные на proxy6.net (https://proxy6.net/ru/), они работают с
+rdns=True, и rdns = False
+
+import aiohttp
+import asyncio
+from aiohttp_socks import ProxyConnector, ProxyType
+
+async def main():
+  url = 'http://httpbin.org/ip'
+  connnector = ProxyConnector(
+    proxy_type = ProxyType.SOCKS5,
+    host='194.28.210.39',
+    port = 9867,
+    username = 'D2Frs6',
+    password='75JjrW',
+    rdsn = True
+  )
