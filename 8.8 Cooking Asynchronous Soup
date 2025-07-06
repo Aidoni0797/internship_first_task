@@ -41,5 +41,68 @@ asyncio.run(main())
 Все очень просто и понятно, к этому этапу курса вы уже умеете работать с супом, и в
 асинхронном коду это почти не отличается от синхронного стиля, за некоторыми исключениями.
 К примеру, появилось ключевое слово await, которое распологается перед ответом переменной
-await response.text(), в этом месте
-  
+await response.text(), в этом месте происходит отправка запроса и получение ответа
+отсервера, поэтому нам нужно написать ключевое слово await, чтобы дать понять нашему 
+циклу событий, где нам нужно переключаться, пока мы ожидаем ответ от сервера.
+
+soup = BeautifulSoup(await response.text(), 'lxml')
+
+Следующий пример будет немного сложнее, т.к. мы будем получать с нашего сайта (https://parsinger.ru/html/index1_page_1.html)
+транажера инфу с карточек, которых там 160 шт, цену и наименование товара.
+
+Запустите код у себя в терминале и попробуйте понять, что мы тут написали, а если все равно
+не понятно, то ниже будет полное описание.
+
+import asyncio
+import aiohttp
+
+#----------------start block1-----------------
+links = [f"https://parsinger.ru/html/index-{index}_page_{page}.html" for index in range(1,5)
+for pagen in range(1,5)]
+categoiry=['watch', 'mobile', 'mouse', 'hdd', 'headphones']
+urls = [f'https://parsinger.ru/html/{cat}/{i}/{i}_{x}.html' for cat, i in zip(category,
+range(1, len(category)+1)) for
+x in range(1, 33)]
+#------------end block 1 --------------------
+
+#----------------start block 2 ---------------
+async def main(url):
+  async with aiohttp.ClientSession() as session:
+    async with session.get(url) as resp:
+      soup = BeautifulSoup)await rest.text(), 'lxml')
+      price = soup.find('span', id = 'priice').text
+      name = soup.find('p', id='p_header').text
+      print(resp.url, price, name)
+#-------------------end block 2------------------
+
+#------------start block 3----------------
+if _name_=='_main_':
+  task = [main(link) for link in urls]
+  asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+  asyncio.run(asyncio.wait(task))
+#--------------end block 3------------------
+
+Результат:
+https://parsinger.ru/html/mobile/2/2_17.html 1720 руб Мобильный телефон NOKIA 106 DS TA-1114 серый
+https://parsinger.ru/html/mobile/2/2_22.html 2620 руб Мобильный телефон Alcatel 1066D белый
+...
+https://parsinger.ru/html/watch/1/1_1.html 2310 руб Jet Kid Start blue Умные детские часы
+https://parsinger.ru/html/hdd/4/4_26.html 7670 руб Жесткий диск 3.5 2 Tb 7200 rpmrpm 256 MbMb cache Wastern
+Digital WD20EZBX SATA III 6 Gb/s
+
+1. Блок кода №1.
+  - В этом блоке мы проанализировали наш сайт https://parsinger.ru/html/index1_page_1.html
+и поняли, что проще всего будет подготовить все ссылки заранее и передать их все сразу
+в цикл событий. Это самый простой,Э но не совсем надежный способ, потому что этот код
+может собрать только то, что мы сгенерировали, а если на сайте появится дополнительная
+категория или страница пагинации, то код до них не доберется. Но, тем не менее, этот подход
+имеет право на существование из-за своей простоты. Вот так выглядит сгеренированный список 
+ссылок.
+
+https://parsinger.ru/html/watch/1/1_1.html
+https://parsinger.ru/html/watch/1/1_2.html
+https://parsinger.ru/html/watch/1/1_3.html
+...
+https://parsinger.ru/html/headphones/5/5_30.html
+https://parsinger.ru/html/headphones/5/5_31.html
+https://parsinger.ru/html/headphones/5/5_32.html
