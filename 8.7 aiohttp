@@ -128,3 +128,40 @@ real_url=URL('https://parsinger.ru/html/index1_page_1.html'))
 
 Эти были основные методы и функции для извлечения данных о зпаросе. Более подробно можно изучить в
 документации.
+
+Aiohttp часть 2
+
+Во второй части мы поговорим о том, какие дополнительные аргументы принимает session.get().
+
+Если у вас не запускается код ниже, то удалите следующую строку.
+
+asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+
+
+import aiohttp
+import asyncio
+
+headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)
+Chrome/105.0.0.0 Safari/537.36'}
+url = 'http://httpbin.org/get'
+data={'sessiokKey': '9ebbd0b25760557393a43064a92bae539d962103', 'format': 'xml', 'platformId':1}
+
+async def main():
+  async with aiohttp.ClientSession(trust_env=True) as session:
+    async with session.get(url=url, headers=headers, timeout=1, params=data) as response:
+      print(await response.text())
+
+asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+asyncio.run(main())
+
+1. session.get(url=https://example.com) - устанавливает ссылку, на которую будет выполнен запрос.
+2. session.get(timeout=1) - устанавливает timeout ожидания ответа от сервера, если ответ не пришёл
+в указанное время будет получена ошибка asyncio.exceptions.TimeoutError.
+3. session.get(headers=headers) - устанавливает заголовки запроса аналогично синхронной библиотеке 
+requests.
+4. session.get(params=data) - устанавливает словарь с дополнительными параметрами. Параметры при запросе
+методом .get() формируют следующую ссылку. Попробуйте запустить этот код у себя и поиграйтесь со словарем
+data, чтобы понять смысл передачи параметров.
+
+#такая ссылка будет сформирована с помощью словаря data
+http://httpbin.org/get?sessionKey=9ebbd0b25760557393a43064a92bae539d962103&format=xml&platformId=1
