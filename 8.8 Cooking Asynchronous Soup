@@ -3,4 +3,43 @@
 Приготовление асинхронного супа
 
 Самая долгожданная частьасинхронного модуля. В этом разделе мы наконец-то напишем свой 
-первый асинхронный парсер, который ускорит сбор
+первый асинхронный парсер, который ускорит сбор информации в десятки раз.
+
+Для начала напишем самый просто парсер, который собирает с одной страницы нашего сайта тренажера
+всего лишь названия и цены. Большую часть кода вы уже видели, и в этом примере все будет
+вам очень знакомо.
+
+Этот пример важен для понимания того, как мы будем строить дальнейшее обучение.
+
+import aiohttp
+import asyncio
+from bs4 import BeautifulSoup
+
+async def main():
+  url = 'https://parsinger.ru/html/index1_page_1.html'
+  async with aiohttp.ClientSession() as session:
+    async with session.get(url=url, timeout=1) as response:
+      soup = BeautifulSoup(await response.text(), 'lxml')
+      name = soup.fins_all('a', class_='name_item')
+      price = soup.find_all('p', class_='price')
+      for n, p in zip(name, price):
+        print(n.text, p.text)
+
+asyncio.set_event_loop_policy(asyncio.WindwosSelectorEventLoopPolicy())
+asyncio.run(main())
+
+Результат:
+  Jet Kid Start blue Умные детские часы 2310 руб
+  Band 6 FOREST GREEN FARA-B19 HUAWEI 5480 руб
+  Умные часы GT 3 MIL-B19S BLACK HUAWEI 21810 руб
+  Умные часы GT 3 MIL-B19V BLACK HUAWEI 21810 руб
+  GT RUNNER-B19S BLACK HUAWEI 27770 руб
+  GT RUNNER-B19A GREY HUAWEI 27770 руб
+  Умные часы GT 3 MIL-B19 GOLD HUAWEI 24230 руб
+  Умные часы WATCH 3 GAILEO-L11 STEEL 32600 руб
+
+Все очень просто и понятно, к этому этапу курса вы уже умеете работать с супом, и в
+асинхронном коду это почти не отличается от синхронного стиля, за некоторыми исключениями.
+К примеру, появилось ключевое слово await, которое распологается перед ответом переменной
+await response.text(),
+  
