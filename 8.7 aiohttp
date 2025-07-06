@@ -521,4 +521,4 @@ async with aiohttp.ClientSession(connector=connector, timeout=.5, trust_env=True
       print(f'bad proxy, status_code - {response.status} - ', end = '')
 
 asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
-as
+asyncio.run(main())
