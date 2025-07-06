@@ -211,3 +211,46 @@ async def main():
 
 asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 asyncio.run(main())
+
+В коде выше добавилась одна новая строка proxy_auth = aiohttp.BasicAuth('user', 'pass'),
+которая управляет авторизацией к прокси-серверу. Также обратите внимание, что мы передаем
+прокси формата 'http://127.0.0.1:80/', аналогично тому, как мы писали в библиотеке requests.
+
+Если ваши прокси не требует авторизации по логину и паролю, достаточно убрать переменную
+proxy_auth.
+
+Код ниже выполнит запрос через прокси. Если у вас есть рабочий прокси, то можете запустить
+этот код с ним. Если рабочей прокси у вас нет, то качественные прокси продаются тут (https://proxy6.net/ru/).
+
+import aiohttp
+import asyncio
+
+url = 'http://httpbin.org/ip'
+
+async def main():
+  proxy='http://127.0.0.1:80'
+  async with aiohttp.ClientSession() as session:
+    async with session.get(url=url, proxy=proxy) as response:
+      print(await response.text())
+
+asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+asyncio.run(main())
+
+Для запуска следующего кода нам понадобится файлик с прокси. Скачать файл с паблик прокси можно тут,
+(iDONi скачала и загрузила в репозоторий) вряд ли они окажутся живыми, но для понимания
+кода нам это и не требуется. А если ваш внутренний перфекционист требует свежие прокси,
+то в этом степе(iDONi ссылку не поставить потому что этот курс платный, а iDONi только на еду хватает)
+ есть рабочий парсер прокси с сайта hidemy.name(ссылка на сайт не рабочий, Бог знает почему так),
+можете собрать сами или купите 100% рабочие по ссылке выше.
+
+import aiohttp
+import asyncio
+import aiofiles
+
+async def main():
+  async with aiofiles.open('proxy_list.txt', mode='r') as f:
+    for prx await f.readlines():
+      proxy = f'http://{prx}'
+      url='http://httpbin.org/ip'
+      try:
+      
