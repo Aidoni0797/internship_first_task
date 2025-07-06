@@ -441,4 +441,13 @@ async def main():
       elif response.status >=400:
         print(f'bad proxy, status_code - {response.status} - ', s4, end='\n')
 
-asyncio.set_event_loop_policy(asyncio.Windwos)
+asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+asyncio.run(main())
+
+Ниже тот же самый код, только теперь он берет прокси непосредственно из списка 
+proxy = []. Такой код будет работать, если все прокси в списке живые, этот код упадет
+при первом нерабочем прокси и вы получите ошибку =>
+
+[Errno 11001] Could not connect to proxy 194.28.210.392:9867 [getaddrinfo failed]
+
+import aiohttp
