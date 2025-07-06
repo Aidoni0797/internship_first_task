@@ -398,4 +398,19 @@ ChainProxyConnector полезен тем, что мы можем использ
 записав его в переменную. Но это не совсем хорошая практика, потому что при большом
 количестве прокси ваш код будет выглядеть ужасно. from_urls([list]) получает на вход
 список, котрый может быть извлечен напрямую из файла. В следующих примерах мы рассмотрим
+как это сделать.
 
+#Передаём список с прокси напрямую в from_urls()
+connector = ChainProxyConnector.from_urls([
+  'socks5://user:password@127.0.0.1:1080',
+  'socks4://127.0.0.1:1081',
+  'http://user:password@127.0.0.1:3128',
+])
+
+async with aiohttp.ClienSession(connector=connector) as session:
+  asyn with session.get(url) as response:
+    return await response.text()
+
+У такого подхода есть одна очень важная особенность, которая портит нам всю малину.
+Вам нужно указывать схему, по которой работают ваши прокси socks4://, socks5:// или
+http:
