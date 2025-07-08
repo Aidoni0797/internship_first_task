@@ -186,7 +186,7 @@ def get_urls_pages(category_lst):
   for cat in category_lst:
     resp = requests.get(url=cat)
     soup = BeautifulSoup(resp.text, 'lxml')
-    for pagen in soup.find('div', class_='pagen').fins_all('a'):
+    for pagen in soup.find('div', class_='pagen').find_all('a'):
       pagen_lst.append(domain+pagen['href'])
 
 async def get_data(session, link):
@@ -212,10 +212,120 @@ async def main():
       tasks.append(task)
     await asyncio.gather(*tasks)
 
-url = 'https://parsingeer.ru/html/index1_page_1.html'
+url = 'https://parsinger.ru/html/index1_page_1.html'
 soup = get_soup(url)
 get_urls_categories(soup)
 get_urls_pages(category_lst)
 
 asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 asyncio.run(main())
+
+Итак, давайте подробнее поговорим про каждую из функций, сверху-вниз.
+
+1. Функция def get_soup(url):
+  def get_soup(url):
+    resp = requests.get(url=url)
+    return BeautifulSoup(rexp.text, 'lxml')
+
+Эта функция максимально проста, онна извлекает суп из переданной в нее первый ссылки на сайте
+https://parsinger.ru/html/index1_page_1.html
+
+2. Функция get_urls_categories(soup):
+
+  def get_urls_categories(soup):
+    all_link = soup.find('div', class_='nav_menu').find_all('a')
+    for cat in all_link:
+      category_lst.append(domain+cat['href'])
+
+Эта функция извлекает все ссылки из правого списка с навигацией, в которой находятся все
+категории товаров, также она наполняет глобальный список category_lst = [] ссылками всех
+категорий. На нашем сайте - тренажере всего пять категорий, и все пять ссылок попадают в этот
+глобальный список. Он нам потребуется для извлесчения длины пагинации в каждой из этих 
+категорий.
+
+category_lst = ['https://parsinger.ru/html/index1_page_1.html',
+                'https://parsinger.ru/html/index2_page_1.html',
+                'https://parsinger.ru/html/index3_page_1.html',
+                'https://parsinger.ru/html/index4_page_1.html',
+                'https://parsinger.ru/html/index5_page_1.html',]
+
+3. Функция def get_urls_pages(categor_lst):
+
+Эта функция собирает все ссылки пагинации, которые находятся в каждой из категорий. Также эта
+функция формирует глобальный список pagen_lst = [], на каждой из этих ссылок находится по восемь
+карточек с товаром, из которых мы будем извлекать данные в асинхронных функциях.
+
+pagen_lst = ['https://parsinger.ru/html/index1_page_1.html',
+              'https://parsinger.ru/html/index1_page_2.html',
+              'https://parsinger.ru/html/index1_page_3.html',
+              'https://parsinger.ru/html/index1_page_4.html',
+              'https://parsinger.ru/html/index2_page_1.html',
+              'https://parsinger.ru/html/index2_page_2.html',
+              'https://parsinger.ru/html/index2_page_3.html',
+              'https://parsinger.ru/html/index2_page_4.html',
+              'https://parsinger.ru/html/index3_page_1.html',
+              'https://parsinger.ru/html/index3_page_2.html',
+              'https://parsinger.ru/html/index3_page_3.html',
+              'https://parsinger.ru/html/index3_page_4.html',
+              'https://parsinger.ru/html/index4_page_1.html',
+              'https://parsinger.ru/html/index4_page_2.html',
+              'https://parsinger.ru/html/index4_page_3.html',
+              'https://parsinger.ru/html/index4_page_4.html',
+              'https://parsinger.ru/html/index5_page_1.html',
+              'https://parsinger.ru/html/index5_page_2.html',
+              'https://parsinger.ru/html/index5_page_3.html',
+              'https://parsinger.ru/html/index5_page_4.html',]
+
+4. Асинхронная функция async def main():
+
+В этой функции происходит создание session при помощи библиотеки aiohttp, также в этой 
+функции мы создаем таски (задачи) task = asyncio.create_task(get_data(session, link)),
+в каждую задачу мы заворачиваем корутину get_data(session, link) и передаем в нее созданную
+ранее session и ссылку, колученную из глобального списка pagen_lst. Когда все задачи 
+сформированы и список tasks наполнен, мы передаем распокованный список tasks в функцию 
+.gather(*tasks), чтобы она собрала все задачи и передала их в цикл событий. Каждый из тасков
+(задач) имеет тип <class '_asyncio.Task'>. Каждый task является awaitable-объектом который
+подходит для их передачи в функцию .gather(*tasks) для дальнейшей отправки в цикл событий.
+
+5. Функция async def get_data(session, link):
+
+В этой функции происходит извлечение данных с каждой страницы. Эта функция получает на вход 
+session and link из глобального списка со ссылками pagen_lst = []. В этой функции мы работаем
+с BeautifulSoup точно так же, как и работали бы при написании синхронного парсера. Здесь нам 
+пришлось использовать session дважды, для более глубокого извлечения данных с карточек.
+Аналогичный код мы писали в задачах по сбору данных со всех 160 карточек с товаром. 
+В асинхронном коде такой подход тоже допустим, т.к. мы используем одну session для всех наших
+запросов. Пример ниже наглядно продемонстрирует множественное переиспользование сессии
+для многоуровневого извлечения данных. Пример синтетический, но хорошо демонстрирует
+возможности глубины парсинга. Попробуйте понять логику этого кода, онна не очень сложная, но
+понимание этого облегчит написание собственных парсеров.
+
+import aiohttp
+import asyncio
+from bs4 import BeautifulSoup
+
+async def main(url):
+  async with aiohttp.ClientSession() as session:
+    async with session.get(url=url) as response:
+      resp = await response.text()
+      soup = BeautifulSoup(resp, 'lxml')
+      item_card = [x['href'] for x in soup.find_all('a', class_='link')]
+      for url2 in item_card:
+        async with session.get(url=url2) as response2:
+          resp2 = await response2.text()
+          soup2 = BeautifulSoup(resp2, 'lxml')
+          item_card2 = [x['href'] for x in soup2.find_all('a', class_ = 'link2')]
+          for url3 in item_card2:
+            async with session.get(url=url3) as response3:
+              resp3 = await response3.text()
+              soup3 = BeautifulSoup(resp3, 'lxml')
+              item_card3 = [x['href'] for x in soup3.find_all('a', class_='link3')]
+              for url4 in item_card3:
+                async with session.get(url=url4) as response4:
+                  resp4 = await response4.text()
+                  soup4 = BeautifulSoup(resp4, 'lxml')
+                  data = [x['href'] for x in soup4.find_all('div', class_='data')]
+                  print(data)
+
+asyncio.set_event_loop_policy(asyncio.WindowsSeletorEventLoopPolicy())
+asyncio.run(main('http://example.com'))
