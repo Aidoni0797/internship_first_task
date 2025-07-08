@@ -146,3 +146,76 @@ if _name_=='_main_':
 печатаются в случайном порядке. Случайный порядок возвращаемых результатов обусловлен спецификой
 работы цикла событий. Как только ответ с данными от сервера получен, он тут же возвращается
 и его результат печатается.
+
+Приготовление асинхронного супа часть 2
+
+В этой части мы разберем на практике как динамически получать разделы и пагинацию и работать со
+всем этим асинхронно. Сразу хочу предупредить, что все примеры в этом степе будут написаны 
+в простом функциональном стиле, хотя для этого идеально подходит ОПП. Это сделано для того,
+чтобы вам не пришлось дополнительно разбираться в ООП, а если вы уже знаете его, то для вас
+не будет сложности переписать этот код так, как вы привыкли. Все-таки, подавляющее 
+большинство учеников курса - начинающие, и не очень хочется еще сильнее усложнять и без того
+сложную тему.
+
+Этот код с docstring можно посмотреть на github.com (https://github.com/nefelsay/stepik_parsing/blob/main/create_async_soup.py)
+
+Этот код уже содержит в себе динамический сбор страниц пагинации в каждой категории. Тут у нас
+есть три синхронные функции, которые нам помогают это сделать, но их мы не будем запускать
+в цикле событий.
+
+import aiohttp
+import asyncio
+import requests
+from bs4 import BeautifulSoup
+
+category_lst = []
+pagen_lst = []
+domain = 'https://parsinger.ru/html/'
+
+def get_soup(url):
+  resp = requests.get(url=url)
+  return BeautifulSoup(resp.text, 'lxml')
+
+def get_urls_categories(soup):
+  all_link = soup.find('div', class_='nav_menu').find_all('a')
+
+  for cat in all_link:
+    category_lst.append(domain+cat['href'])
+
+def get_urls_pages(category_lst):
+  for cat in category_lst:
+    resp = requests.get(url=cat)
+    soup = BeautifulSoup(resp.text, 'lxml')
+    for pagen in soup.find('div', class_='pagen').fins_all('a'):
+      pagen_lst.append(domain+pagen['href'])
+
+async def get_data(session, link):
+  async with session.get(url=link) as response:
+    resp = await response.text()
+    soup = BeautifulSoup(resp, 'lxml')
+    item_card = [x['href'] for x in soup.find_all('a', class_='name_item')]
+    for x in item_card:
+      url2 = domain + x
+      async with session.get(url=url2) as response2:
+        resp2 = await response2.text()
+        soup2 = BeautifulSoup(resp2, 'lxml')
+        article = soup2.find('p', class_='article').text
+        name = soup2.find('p', id='p_header').text
+        price = soup2.find('span', id='price').text
+        print(url2, price, article, name)
+
+async def main():
+  async with aiohttp.ClientSession() as session:
+    tasks = []
+    for link in pagen_lst:
+      task = asyncio.create_task(get_data(session, link))
+      tasks.append(task)
+    await asyncio.gather(*tasks)
+
+url = 'https://parsingeer.ru/html/index1_page_1.html'
+soup = get_soup(url)
+get_urls_categories(soup)
+get_urls_pages(category_lst)
+
+asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+asyncio.run(main())
