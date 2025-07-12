@@ -491,3 +491,11 @@ async def main():
 
   )
 
+async with aiohttp.ClientSession(connector=connector, headers=fake_ua) as session:
+  tasks = []
+  for link in pagen_lst:
+    task = asyncio.create_task(get_data(session, link))
+    tasks.append(task)
+  await asyncio.gather(*tasks)
+
+url = 'https://parsinger.ru/html/index1_page_1.html'
