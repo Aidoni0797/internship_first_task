@@ -432,5 +432,19 @@ async def get_data(session, link):
 Для запуска кода ниже потребуется хотя-бы один рабочий прокси.
 
 Для запуска этого когда потребуются рабочие прокси.
+import aiohttp
+import asyncio
+import requests
+from bs4 import BeautifulSoup
+from aiohttp_socks import ChainProxyConnector
+from aiohttp_retry import RetryClient, ExponentialRetry
+from fake_useagent import UserAgent
 
+category_lst = []
+pagen_lst = []
+domain = 'https://parsinger.ru/html/'
+
+def get_soup(url): 
+  resp = requests.get(url=url)
+  return BeautifulSoup(resp.text, '')
 
