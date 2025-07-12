@@ -446,5 +446,15 @@ domain = 'https://parsinger.ru/html/'
 
 def get_soup(url): 
   resp = requests.get(url=url)
-  return BeautifulSoup(resp.text, '')
+  return BeautifulSoup(resp.text, 'lxml')
+
+deg get_urls_categories(soup):
+  all_link = soup.find('div', class_='nav_menu').find_all('a')
+
+  for cat in all_link:
+    category_lst.append(domain + cat['href'])
+
+def get_urls_pages(category_lst):
+  for cat in category_lst:
+    resp = requests.get(url=cat)
 
