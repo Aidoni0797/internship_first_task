@@ -329,3 +329,61 @@ async def main(url):
 
 asyncio.set_event_loop_policy(asyncio.WindowsSeletorEventLoopPolicy())
 asyncio.run(main('http://example.com'))
+
+Aiohttp-retry или Повтор неуспешного подключения
+
+При создании асинхронного парсинга вы получаете не только высокую скорость сбора данных, но и 
+повышенную вероятность получить бан по IP. Как работать с прокси, мы подробно разобрали в прошлом 
+модуле. Также нередки случаи когда сервер закрывает одно из ваших асинхронных подключений, это чаще
+всего происходит из-за большого количества запросов. Это еще не бан, но запрос сервером обработан не был.
+Для повторного запроса в случае неудачи существует отличный клиент, который работает совместно с aiohttp
+и называется aiohttp-retry.
+
+aiohttp-retry документация - https://github.com/inyutin/aiohttp_retry
+
+Установите этот модуль себе в окружающую среду вашего проекта, он нам понадобится для запуска кода.
+
+Установка
+pip install aiohttp-retry
+
+Импорт
+from aiohttp-retry import RetryClient
+
+Самый простой пример из документации. Но у такого примера есть один недостаток: по умолчанию будет 
+производиться всего лишь один повторный запрос. В случае, если и второй запрос окажется неудачным, вы
+не получите требуемые данные. Мне пришлось немного модифицировать пример из документации, мы ведь
+любим пользоваться менеджером контекста with/as. В этом случае нам не нужно закрывать вручную нашу
+сессию командой =>
+
+await client_sesison.close()
+
+import aiohttp
+from aiohttp_retry import RetryClient
+
+async def main():
+  async with aiohttp.ClientSession() as session:
+    client_session = session
+    retry_client = RetryClient(client_session=client_session)
+    async with retry_client.get('https://ya.ru') as response:
+      print(response.status)
+
+Для того, чтобы у нас была возможность управлять количеством повторных подключений, нам потребуется
+использовать класс ExponenetialRetry из модуля aiohttp_retry. Импортируем этот класс из модуля и немного
+модифицируем первый пример.
+
+import aiohttp
+from aiohttp_retry import RetryClient, ExponentialRetry
+
+async def get_data(session, link):
+  retry_options = ExponentialRetry(attemts=10)
+  retry_client = RetryClient(raise_for_status=False, retry_options=retry_options, client_session=session)
+  async with retry_client.get(link) as response:
+
+Давайте разбираться, что тут написано и как с этим работать.
+
+1. retry_options = ExponentialRetry(attempts=10) - создаем экземпляр класса ExponentialRetry и передаем
+атрибут attempts=, этот атрибут принимает целое число, которое указывает на количество повторных попыток
+подключения. В данном примере будет произведено десять попыток повторных подключений. Ниже указаны все
+доступные атрибуты.
+- ExponentialRetry(attempts=10) - (int) количество повторный подключений;
+- ExponentialRetry(atart_timeout=0.5) - ()
