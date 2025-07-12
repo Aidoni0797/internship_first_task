@@ -399,4 +399,13 @@ async def get_data(session, link):
 
 2. retry_client = RetryClient(raise_for_status=False, retry_options=retry_options,client_session=session)
 создаем экземпляр класса RetryClient и в атрибутах передаём следующие параметры.
-- RetryClient(client_sesison = session) - передаёт объект 
+- RetryClient(client_sesison = session) - передаёт объект сессии которую мы получили от aiohttp;
+- RetryClient(retry_options=retry_options) - передает экземпляр класса Exponentialretry(),в котором
+мы настраивали параметры повторного запроса.
+- RetryClient(raise_for_status=True) - Если True, использует время ответа сервера в качестве 
+параметра для расчета следующего timeout, лучше использовать параметр False, который установлен по
+умолчанию. Если True, вы можете столкнуться с проблемой, когда сервер не ответил и следующий timeout
+получит значение None, тогда расчет времени для следующего запроса, будет  не рассчитан, потому
+что из None невозможно ничего рассчитать;
+- RetryClient(logger=[type_logger]) - устанавливает логирование запросов, подробнее можно почитать
+в документации; (https://github.com/inyutin/aiohttp_retry)
