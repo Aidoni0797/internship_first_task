@@ -386,4 +386,17 @@ async def get_data(session, link):
 подключения. В данном примере будет произведено десять попыток повторных подключений. Ниже указаны все
 доступные атрибуты.
 - ExponentialRetry(attempts=10) - (int) количество повторный подключений;
-- ExponentialRetry(atart_timeout=0.5) - ()
+- ExponentialRetry(atart_timeout=0.5) - (float) базовое время ожидания, с каждым новым запросом
+значение возрастает экспоненционально;
+- ExponentialRetry(max_timeput=30.0) - (float) максимально возможное время ожидания;
+- ExponentialRetry(factor=3.0) - (float) - на переданное значение будет увеличиваться timeout
+ожидания для следующего запроса;
+- ExponentialRetry(statuses=[400,403]) - list(int, int) на каких статусах нужно повторить запрос;
+- ExponentialRetry(exceptions=[Exeption, TimeoutError]) - list(type_Exception, type_Exception) - 
+при каких исключениях повторять запрос, по умочанию None;
+- ExponentialRetry(retry_all_server_errors=True) - повторить подключение при любых ошибках сервера,
+явно указывать не нужно, т.к. по умолчанию True.
+
+2. retry_client = RetryClient(raise_for_status=False, retry_options=retry_options,client_session=session)
+создаем экземпляр класса RetryClient и в атрибутах передаём следующие параметры.
+- RetryClient(client_sesison = session) - передаёт объект 
