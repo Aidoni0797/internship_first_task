@@ -485,7 +485,8 @@ async def main():
   fake_ua = {'user-agent': ua.random}
   connector =ChainProxyConnector.from_urls(
     [
-    
+      'socks5://D2Frs6:75JjrW@194.28.210.39:9867',
+      'socks5://D2Frs6:75JjrW@194.28.209.68:9925',
     ]
 
   )
