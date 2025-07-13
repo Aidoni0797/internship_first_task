@@ -155,4 +155,10 @@ import aiofiles
 import asyncio
 
 Этот код читает файл построчно миллион строк.
-async def 
+async def gun_numbers():
+  async with aiofiles.open('async_one_million_numbers.txt', mode='r') as file:
+    text = await file.readline()
+    print(text)
+
+start = time.perf_counter()
+asyncio.set_event_loop_policy(asyncio)
