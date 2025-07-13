@@ -164,3 +164,7 @@ start = time.perf_counter()
 asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 asyncio.run(gen_numbers())
 print(time.perf_counter() - start)
+
+aiofiles начало
+
+Если ваша цель 
