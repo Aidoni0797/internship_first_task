@@ -124,3 +124,25 @@ async def write_number():
 
 start = time.perf_counter()
 asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+asyncio.run(write_numbers())
+print(time.perf_counter() - start)
+
+Результат:
+  0.1362756000016816
+
+- await file.readlines(str) - считывает из файла все строки в список и возвращает его. Для запуска 
+кода ниже и следующего вам понадобиться файл, сгенерированный прошлым кодом, этот файл можно скачать тут
+import time
+impotr aiofiles
+import asyncio
+
+Этот код читает файл построчно миллион строк.
+
+async def gen_numbers():
+  async with aiofiles.open('async_one_million.txt', mode='r') as file:
+    text = await file.readlines()
+    print(text)
+
+start = time.perf_counter()
+asyncio.set_event_loop_policy(asyncio.WindowsSelectorEvent)
+
