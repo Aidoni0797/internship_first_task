@@ -228,4 +228,29 @@ import asyncio
 path = os.listdir('file_text')
 
 def sync_mass_read(path):
-  stqart
+  start = time.perf_counter()
+  for file in path:
+    with open(f"file_text/{file}", 'r') as f:
+      for line in f:
+        print(line.strip())
+  sync_time = round(time.perf_counter()-start,5)
+  return sync_time
+
+async def async_mass_read(path):
+  start = time.perf_counter()
+  for file in path:
+    async with aiofiles.open(f"file_text{file}", mode='r') as f:
+      async for line in f:
+        print(str(line).strip())
+    async_time = round(time.perf_counter()-start,5)
+    return print(f"Файл считан построчно в асинхронном стиле за {async_time} сек")
+
+sync = sync_mass_read(path)
+asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+asyncio.run(async_mass_read(path))
+print(f"Файл считан построчно в синхронном стиле за {sync} сек")
+
+Результат
+
+  Файл считан построчно в асинхронном стиле за 8.66915 сек
+  Файл считан построчно в синхронном стиле за 125.47881 сек
