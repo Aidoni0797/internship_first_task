@@ -144,5 +144,15 @@ async def gen_numbers():
     print(text)
 
 start = time.perf_counter()
-asyncio.set_event_loop_policy(asyncio.WindowsSelectorEvent)
+asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+asyncio.run(gen_numbers())
+print(time.perf_counter() - start)
 
+- await file.readline(str) - считывает из файла одну строку и возвращает её
+
+import time
+import aiofiles
+import asyncio
+
+Этот код читает файл построчно миллион строк.
+async def 
