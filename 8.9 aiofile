@@ -85,4 +85,42 @@ file.close(), в том случае если мы не использовали
 Aiofiles имеет в своем арсенале асинхронные копии привычных для всех чтения и записи файлов, а 
 именно readline, readlines, write, writelines о них мы и поговорим ниже. На самом деле их больше,
 познакомиться с ними можно в документации, а для наших целей хватит и перечисленных. Все эти функции
-должны быть использованы с ключевым словом await, потому что
+должны быть использованы с ключевым словом await, потому что когда вы работает с файлами в момент
+чтения или записи, цикл событий будет переключать контекст для открытия следующего.
+
+- await file.writelines(str) - записывает в файл указанную последовательность строк.
+
+Этот код генерирует  и записывает в файл построчно. 100к рандомных чисел от 10 к до  100 к
+
+import time
+import aiofiles
+import asyncio
+
+async def write_numbers():
+  async with aiofiles.open('one_million.txt', mode='a') as file:
+    for x in range(1,100000):
+      await file.writelines(str(random.randint(10000, 100000))+'\n')
+
+start = time.perf_counter()
+asyncio.set_event_loop_policy(asyncio.WindowsSelectorLoopPolicy())
+asyncio.run(write_numbers())
+print(time.perf_counter() - start)
+
+Результат:
+  8.32808830001159
+
+await file.write(str) - записывает в файл указанную строку.
+
+Этот код генерирует и записывает файл целиком миллион чисел от 100к до 1кк
+
+import time
+import aiofiles
+import asyncio
+
+async def write_number():
+  async with aiofiles.open('async_write_n\million_numbers.txt', mode='w') as file:
+    numbers = str([x for x in range(100000, 1000001)])
+    awaot file.write(numbers)
+
+start = time.perf_counter()
+asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
