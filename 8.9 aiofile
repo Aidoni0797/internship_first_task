@@ -326,3 +326,42 @@ print(f'Сохранено асинхронным способом за {round(t
 #Результат
   Сохранено синхронным способом за 60.593 сек
   Сохранено асинхронным способом за 58.765 сек
+
+
+Скачивание картинок в асинхронном стиле
+
+К этому этапу курса вы уже умеете скачаиьтва изображения при помощи bs4 и requests, в этом разделе мы
+рассмотрим скачивание 100 картинок, и сравним скорость асинхронного скачивания и синхронного.
+
+Для запуска этого кода создайте папку images для сохранения изображений. Все изображения будут скачаны
+с этого сайта - https://parsinger.ru/asyncio/aiofile/1/index.html.
+
+import time
+import aiofiles
+import asyncio
+import aiohttp
+from bs4 import BeautifulSoup
+import os
+
+async def write_file(session, url, name_img):
+  async with aiofiles.open(f'images/{name_img}', mode='wb') as f:
+    async for x in response.content.iter_chunked(1024):
+      await f.write(x)
+    print(f'Изображение сохранено {name_img}')
+
+asyn def main():
+  url = 'https://parsinger.ru/asyncio/aiofiles/1/index.html'
+  async with session.get(url) as response:
+    soup = BeautifulSoup(await response.text(), 'lxml')
+    img_url = [f'https://parsinger.ru/asyncio/aiofile/1/{x["src"]}' for x in soup.find_all('img')]
+    tasks = []
+    for link in img_url:
+      name_img = link.split('/')[7]
+      task = asyncio.create_task(write_file(session, link, name_img))
+      tasks.append(task)
+    await asyncio.gather(*tasks)
+
+start = time.perf_counter()
+asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+asyncio.run(main())
+print(f'Сохранено изображений {len(os.)}')
