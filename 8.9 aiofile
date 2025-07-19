@@ -427,4 +427,21 @@ def main(url):
   response = requests.get(url)
   soup = BeautifulSoup(response.text, 'lxml')
   images_link = [f'https://parsinger.ru/asyncio/aiofile/1/{x["src"]}' for x in soup.find_all('img')]
-  img_url.extend(
+  img_url.extend(images_link)
+
+  for x in images_link:
+    response2 = requests.get(x, stream=True).content
+    name_img = x.split('/')[7]
+    read_file = open(f'sync_save_files/{name_img}.jpg', 'wb')
+    read_file.write(response2)
+
+start = time.parf_counter()
+url = 'https://parsinger.ru/asyncio/aiofile/1/index.html'
+main(url)
+print(time.perf_counter()-start)
+
+
+Результат
+  61.421374800032936
+
+Разница в коде впечатляет. Мы увеличили 
