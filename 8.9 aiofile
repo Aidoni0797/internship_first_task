@@ -318,4 +318,11 @@ start = time.perf_counter()
 sync_write()
 print(f'Сохранено синхронным способом за {round(time.perf_counter()-start,3)} сек')
 
-start = time
+start = timeperf_counter()
+asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+asyncio.run(async_witer())
+print(f'Сохранено асинхронным способом за {round(time.perf_counter()-start, 3)} сек')
+
+#Результат
+  Сохранено синхронным способом за 60.593 сек
+  Сохранено асинхронным способом за 58.765 сек
